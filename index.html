@@ -463,19 +463,23 @@
       lucide.createIcons();
     }
 
-    function openModal(id) {
+function openModal(id) {
       const item = trips.find(t => t.id === id);
+      if (!item) return;
+
       document.getElementById('modal-title').textContent = item.title;
+      // Fixed the Google Maps link logic here
       document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
       
       let relatedHtml = '';
-      if (item.related) {
+      if (item.related && item.related.length > 0) {
         relatedHtml = `
           <div class="mt-12 pt-8 border-t border-white/5">
             <h4 class="text-purple-500 font-bold uppercase text-xs mb-6 tracking-widest">Related Locations</h4>
             <div class="grid grid-cols-1 gap-3">
               ${item.related.map(relId => {
                 const rel = trips.find(t => t.id === relId);
+                if (!rel) return '';
                 return `<button onclick="openModal('${rel.id}')" class="w-full p-5 bg-white/5 border border-white/10 rounded-2xl text-left hover:bg-white/10 transition flex justify-between items-center group">
                   <div>
                     <p class="text-white font-bold">${rel.title}</p>
@@ -487,6 +491,47 @@
             </div>
           </div>`;
       }
+
+      // This is the part that adds the badges, history, and star-bulleted facts
+      document.getElementById('modal-content').innerHTML = `
+        <div class="w-full h-72 rounded-3xl mb-8 flex items-center justify-center shadow-inner" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
+          <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mb-8">
+          <div class="flex items-center gap-2 text-purple-400 bg-purple-400/10 px-4 py-2 rounded-full border border-purple-400/20">
+            <i data-lucide="map-pin" class="w-4 h-4"></i>
+            <span class="text-xs font-bold uppercase">${item.region}</span>
+          </div>
+          ${item.features ? item.features.map(f => `
+            <div class="flex items-center gap-2 text-zinc-400 bg-white/5 px-4 py-2 rounded-full border border-white/5">
+              <i data-lucide="info" class="w-4 h-4"></i>
+              <span class="text-xs font-bold uppercase">${f}</span>
+            </div>
+          `).join('') : ''}
+        </div>
+
+        <p class="text-zinc-300 text-xl leading-relaxed mb-8">${item.desc}</p>
+        
+        <h3 class="text-purple-500 font-black text-2xl mb-4 uppercase tracking-tighter">History</h3>
+        <p class="text-zinc-400 text-md leading-relaxed mb-10">${item.history || 'Full history restoration in progress...'}</p>
+
+        <h3 class="text-purple-500 font-black text-2xl mb-6 uppercase tracking-tighter">Key Facts</h3>
+        <ul class="space-y-4 mb-10">
+          ${item.facts ? item.facts.map(fact => `
+            <li class="flex items-start gap-3 text-zinc-300">
+              <i data-lucide="star" class="w-5 h-5 text-purple-500 mt-1 shrink-0"></i>
+              <span class="text-md font-medium leading-tight">${fact}</span>
+            </li>
+          `).join('') : '<li>Scanning for archives...</li>'}
+        </ul>
+
+        ${relatedHtml}
+      `;
+      
+      document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
 
       document.getElementById('modal-content').innerHTML = `
         <div class="w-full h-72 rounded-3xl mb-8 flex items-center justify-center shadow-inner" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
