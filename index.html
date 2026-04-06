@@ -119,19 +119,18 @@
 
   <script>
     const trips = [
-      { id: 'eureka', title: 'Eureka Springs, Arkansas', region: 'Carroll County, AR', type: 'Historic Victorian Town', category: 'historic', color: '#8a2be2', desc: 'Tucked away in the Ozark Mountains, Eureka Springs is a town that time forgot—and the spirits remembered.', history: 'Founded in 1879, the city exploded as thousands flocked to its "miraculous" springs.', funFacts: ['No two streets intersect at a 90-degree angle'] },
-      { id: 'waverly', title: 'Waverly Hills Sanatorium', region: 'Louisville, KY', type: 'Abandoned Medical Site', category: 'haunted', color: '#4b0082', desc: 'A massive, Tudor Gothic monument to a dark era of American medicine.', history: 'Opened in 1910 to combat the "White Plague."', funFacts: ['The "Body Chute" is a primary site for shadow person sightings'] },
-      { id: 'san-luis', title: 'San Luis Valley, Colorado', region: 'South-Central CO', type: 'High-Altitude Anomaly', category: 'alien', color: '#006400', desc: 'The San Luis Valley is one of North America\'s most active UFO and paranormal hotspots.', history: 'Indigenous peoples reported seeing "sky beings" for centuries.', funFacts: ['Hundreds of UFO sightings reported annually'] },
-      { id: 'villisca', title: 'Villisca Axe Murder House', region: 'Villisca, IA', type: 'Unsolved Crime Site', category: 'cemetery', color: '#310000', desc: 'Site of one of the most brutal unsolved mass murders in American history.', history: 'On June 10, 1912, eight people were discovered dead.', funFacts: ['The killer covered all mirrors after the act'] },
-      { id: 'mothman', title: 'Point Pleasant Mothman Site', region: 'Point Pleasant, WV', type: 'Cryptid Hotspot', category: 'cryptid', color: '#1a1a1a', desc: 'The epicenter of a 13-month reign of terror where a winged creature plagued a town.', history: 'Sightings culminated in the Silver Bridge collapse.', funFacts: ['Features a polished chrome Mothman statue'] },
-      { id: 'mutter', title: 'The Mütter Museum', region: 'Philadelphia, PA', type: 'Medical Oddities Museum', category: 'historic', color: '#5c4033', desc: 'A world-renowned collection of anatomical specimens and antique medical equipment.', history: 'Started in 1858 by Dr. Thomas Dent Mütter.', funFacts: ['Houses the "Soap Lady" mummy'] },
-      { id: 'bachelors', title: 'Bachelor\'s Grove Cemetery', region: 'Midlothian, IL', type: 'Abandoned Graveyard', category: 'cemetery', color: '#2d3b2d', desc: 'Widely considered the most haunted graveyard in America.', history: 'Dating back to the 1830s, the cemetery fell into disrepair.', funFacts: ['Famous for the "Madonna" ghost photo'] },
-      { id: 'falk', title: 'Fouke Monster Bog', region: 'Fouke, AR', type: 'Swamp Cryptid Site', category: 'cryptid', color: '#1b3022', desc: 'Home to the aggressive, three-toed "Southern Sasquatch."', history: 'Gained national fame in 1971 after an alleged attack.', funFacts: ['Described as uniquely having only three toes'] },
-      { id: 'centralia', title: 'Centralia Mine Fire', region: 'Centralia, PA', type: 'Modern Ghost Town', category: 'historic', color: '#444444', desc: 'A town burning from the inside out since 1962.', history: 'Evacuated in the 1980s after sinkholes opened.', funFacts: ['The fire will likely burn for 250 more years'] },
-      { id: 'winchester', title: 'Winchester Mystery House', region: 'San Jose, CA', type: 'Architectural Anomaly', category: 'historic', color: '#3d2b1f', desc: 'A labyrinth of architectural madness built to confuse spirits.', history: 'Construction continued 24 hours a day for 38 years.', funFacts: ['The number 13 is repeated throughout the house'] }
+      { id: 'eureka', title: 'Eureka Springs, Arkansas', region: 'Carroll County, AR', type: 'Historic Victorian Town', category: 'historic', color: '#8a2be2', desc: 'Tucked away in the Ozark Mountains, Eureka Springs is a town that time forgot—and the spirits remembered. Built entirely of local limestone and perched on steep, winding hillsides, this Victorian-era "Little Switzerland" was founded on the promise of healing spring waters.', history: 'Founded in 1879, the city exploded as thousands flocked to its "miraculous" springs. By the early 1900s, it became a hideout for outlaws like the James Gang and later, a center for medical scandals.', funFacts: ['No two streets intersect at a 90-degree angle', 'The entire downtown is on the National Register of Historic Places', 'Features an "underground" city of abandoned Victorian storefronts'] },
+      { id: 'waverly', title: 'Waverly Hills Sanatorium', region: 'Louisville, KY', type: 'Abandoned Medical Site', category: 'haunted', color: '#4b0082', desc: 'A massive, Tudor Gothic monument to a dark era of American medicine. Once a world-class facility for tuberculosis patients, the sheer volume of death within these walls has left an imprint.', history: 'Opened in 1910 to combat the "White Plague," the sanatorium saw an estimated 63,000 deaths. Because the staff didn\'t want living patients to see the dead being moved, they built the "Body Chute."', funFacts: ['The "Body Chute" is a primary site for shadow person sightings', 'Regularly voted the "most haunted place on Earth"'] },
+      { id: 'san-luis', title: 'San Luis Valley, Colorado', region: 'South-Central CO', type: 'High-Altitude Anomaly', category: 'alien', color: '#006400', desc: 'The San Luis Valley is one of North America\'s most active UFO and paranormal hotspots, located between the San Juan and Sangre de Cristo Mountains.', history: 'The San Luis Valley has been a center of paranormal activity since pre-Columbian times. Indigenous peoples reported seeing "sky beings" for centuries.', funFacts: ['Hundreds of UFO sightings reported annually', 'Cattle mutilations occur periodically throughout the valley'] },
+      { id: 'villisca', title: 'Villisca Axe Murder House', region: 'Villisca, IA', type: 'Unsolved Crime Site', category: 'cemetery', color: '#310000', desc: 'In a quiet Iowa town, a modest white house stands as the site of one of the most brutal unsolved mass murders in American history.', history: 'On June 10, 1912, Josiah and Sarah Moore, their four children, and two overnight guests were discovered dead. The killer had used Josiah\'s own axe.', funFacts: ['The killer covered all mirrors and windows with cloth after the act', 'Voted one of the most terrifying overnight stays in the Midwest'] },
+      { id: 'mothman', title: 'Point Pleasant Mothman Site', region: 'Point Pleasant, WV', type: 'Cryptid Hotspot', category: 'cryptid', color: '#1a1a1a', desc: 'The epicenter of a 13-month reign of terror where a winged, red-eyed creature plagued a small West Virginia town.', history: 'Starting in November 1966, residents reported a 7-foot-tall winged man. The sightings abruptly stopped after the Silver Bridge collapse in 1967.', funFacts: ['Features a polished chrome Mothman statue', 'Home to the world\'s only Mothman Museum'] },
+      { id: 'mutter', title: 'The Mütter Museum', region: 'Philadelphia, PA', type: 'Medical Oddities Museum', category: 'historic', color: '#5c4033', desc: 'A world-renowned collection of anatomical specimens, wax models, and antique medical equipment.', history: 'Started in 1858 by Dr. Thomas Dent Mütter, the collection was intended to improve medical education.', funFacts: ['Houses the "Soap Lady" mummy', 'Displays sections of Albert Einstein’s brain'] },
+      { id: 'bachelors', title: 'Bachelor\'s Grove Cemetery', region: 'Midlothian, IL', type: 'Abandoned Graveyard', category: 'cemetery', color: '#2d3b2d', desc: 'Widely considered the most haunted graveyard in America, where the barrier between the living and the dead is dangerously thin.', history: 'Dating back to the 1830s, the cemetery fell into disrepair and was rumored to be a dumping ground for organized crime in the 1920s.', funFacts: ['Famous for the "Madonna" ghost photo (1991)', 'Reports of a "vanishing farmhouse" on the path'] },
+      { id: 'falk', title: 'Fouke Monster Bog', region: 'Fouke, AR', type: 'Swamp Cryptid Site', category: 'cryptid', color: '#1b3022', desc: 'Home to the "Southern Sasquatch," described as an aggressive, three-toed predator that stalks the Sulphur River bottoms.', history: 'Gained national fame in 1971 when it allegedly attacked a local family home. The incident inspired "The Legend of Boggy Creek."', funFacts: ['Described as uniquely having only three toes', 'Boggy Creek festival celebrates the legend annually'] },
+      { id: 'centralia', title: 'Centralia Mine Fire', region: 'Centralia, PA', type: 'Modern Ghost Town', category: 'historic', color: '#444444', desc: 'A town burning from the inside out. Since 1962, a trash fire ignited a coal vein beneath the town.', history: 'Evacuated in the 1980s after steaming sinkholes opened in backyards. It inspired the "Silent Hill" franchise.', funFacts: ['The fire will likely burn for 250 more years', 'The ZIP code was revoked in 2002'] },
+      { id: 'winchester', title: 'Winchester Mystery House', region: 'San Jose, CA', type: 'Architectural Anomaly', category: 'historic', color: '#3d2b1f', desc: 'A sprawling labyrinth of architectural madness built by Sarah Winchester to confuse spirits.', history: 'Construction continued 24 hours a day for 38 years. The result is a house with stairs that lead to ceilings.', funFacts: ['The number 13 is repeated throughout the house', 'Sarah Winchester never slept in the same room twice'] }
     ];
 
-    let likedTrips = new Set();
     let currentFilter = 'all';
 
     function toggleSave(id) {
@@ -142,13 +141,16 @@
       const featured = trips[0];
       document.getElementById('featured-card').innerHTML = `
         <div onclick="openModal(trips.find(t=>t.id==='${featured.id}'))" class="flex flex-col md:flex-row w-full cursor-pointer hover:bg-white/[0.02] transition-all group">
-          <div class="w-full md:w-2/5 min-h-[300px] flex items-center justify-center border-r border-white/5" style="background: linear-gradient(135deg, ${featured.color}, #12121a)">
-            <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center">Photo Coming Soon</span>
+          <div class="w-full md:w-2/5 min-h-[350px] flex items-center justify-center border-r border-white/5" style="background: linear-gradient(135deg, ${featured.color}, #12121a)">
+            <div class="flex flex-col items-center gap-2">
+              <i data-lucide="camera-off" class="w-12 h-12 text-white/10"></i>
+              <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center">Photo Coming Soon</span>
+            </div>
           </div>
           <div class="p-10 flex flex-col justify-center flex-1 text-left relative">
             <span class="text-purple-500 text-[10px] font-black uppercase mb-2">${featured.region}</span>
             <h3 class="text-3xl font-black mb-4 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors">${featured.title}</h3>
-            <p class="text-zinc-400 text-base mb-8 line-clamp-2 leading-relaxed">${featured.desc}</p>
+            <p class="text-zinc-400 text-base mb-8 line-clamp-3 leading-relaxed">${featured.desc}</p>
             <div class="flex gap-4">
               <button onclick="event.stopPropagation(); toggleSave('${featured.id}')" class="p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5">
                 <i data-lucide="bookmark" class="w-5 h-5"></i>
@@ -169,7 +171,7 @@
         const card = document.createElement('div');
         card.className = 'attraction-card rounded-[2.5rem] p-8 cursor-pointer relative';
         card.innerHTML = `
-          <div class="h-40 rounded-2xl mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
+          <div class="h-44 rounded-2xl mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
             <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming Soon</span>
           </div>
           <div class="flex justify-between items-start mb-4 text-left">
@@ -177,7 +179,7 @@
               <span class="text-purple-500 text-[9px] font-black uppercase tracking-widest">${item.category}</span>
               <h3 class="text-lg font-bold mt-1 text-white leading-tight">${item.title}</h3>
             </div>
-            <button onclick="event.stopPropagation(); toggleSave('${item.id}')" class="p-2 bg-white/5 rounded-full transition-all">
+            <button onclick="event.stopPropagation(); toggleSave('${item.id}')" class="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-all">
               <i data-lucide="bookmark" class="w-4 h-4"></i>
             </button>
           </div>
@@ -191,8 +193,50 @@
 
     function openModal(item) {
       document.getElementById('modal-title').textContent = item.title;
-      document.getElementById('modal-map-link').href = `http://googleusercontent.com/maps.google.com/${encodeURIComponent(item.title)}`;
-      document.getElementById('modal-content').innerHTML = `<p class="text-zinc-300 text-base leading-relaxed mb-10">${item.desc}</p>`;
+      // Fixed Map Link logic
+      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`;
+      
+      document.getElementById('modal-content').innerHTML = `
+        <div class="w-full h-64 rounded-3xl mb-8 flex items-center justify-center shadow-inner" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
+          <div class="flex flex-col items-center gap-2">
+            <i data-lucide="camera-off" class="w-12 h-12 text-white/10"></i>
+            <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-6 mb-8 text-zinc-500">
+          <div class="flex items-center gap-2 text-[11px]">
+            <i data-lucide="map-pin" class="w-4 h-4 text-purple-600"></i>
+            <span>${item.region}</span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px]">
+            <i data-lucide="info" class="w-4 h-4 text-purple-600"></i>
+            <span>${item.type || 'Strange Location'}</span>
+          </div>
+        </div>
+
+        <p class="text-zinc-300 text-lg leading-relaxed mb-10 text-left">${item.desc}</p>
+        
+        <div class="mb-10 text-left">
+          <h4 class="text-purple-500 font-bold uppercase text-xs mb-4 tracking-widest">History & Lore</h4>
+          <div class="space-y-5 text-zinc-300 text-base leading-relaxed">
+            <p>${item.history}</p>
+          </div>
+        </div>
+
+        <div class="mb-10 text-left">
+          <h4 class="text-purple-500 font-bold uppercase text-xs mb-6 tracking-widest">Key Facts</h4>
+          <ul class="space-y-4">
+            ${item.funFacts ? item.funFacts.map(fact => `
+              <li class="flex gap-4 items-start text-base text-zinc-300">
+                <i data-lucide="star" class="w-5 h-5 text-purple-600 flex-shrink-0"></i>
+                <span>${fact}</span>
+              </li>
+            `).join('') : '<li class="text-zinc-600">Gathering more intelligence...</li>'}
+          </ul>
+        </div>
+      `;
+      
       document.getElementById('detail-modal').classList.remove('hidden');
       lucide.createIcons();
     }
@@ -205,18 +249,26 @@
       
       document.getElementById('search-input').oninput = (e) => {
         const val = e.target.value.toLowerCase();
-        const filtered = trips.filter(t => t.title.toLowerCase().includes(val) || t.desc.toLowerCase().includes(val));
         const grid = document.getElementById('trip-grid');
         grid.innerHTML = '';
+        
+        const filtered = trips.filter(t => 
+          t.title.toLowerCase().includes(val) || 
+          t.desc.toLowerCase().includes(val)
+        );
+
         filtered.forEach(item => {
           const card = document.createElement('div');
           card.className = 'attraction-card rounded-[2.5rem] p-8 cursor-pointer relative';
           card.innerHTML = `
-            <div class="h-40 rounded-2xl mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
+            <div class="h-44 rounded-2xl mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
               <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming Soon</span>
             </div>
-            <h3 class="text-lg font-bold text-white mb-2 text-left">${item.title}</h3>
-            <p class="text-zinc-500 text-xs line-clamp-2 text-left">${item.desc}</p>
+            <div class="text-left">
+                <span class="text-purple-500 text-[9px] font-black uppercase tracking-widest">${item.category}</span>
+                <h3 class="text-lg font-bold mt-1 text-white leading-tight">${item.title}</h3>
+                <p class="text-zinc-500 text-xs mt-4 line-clamp-2 leading-relaxed">${item.desc}</p>
+            </div>
           `;
           card.onclick = () => openModal(item);
           grid.appendChild(card);
@@ -236,8 +288,7 @@
         };
       });
     };
-  </script>
-
+ </script>
   <footer class="mt-20 py-12 border-t border-white/5 bg-black/40">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
