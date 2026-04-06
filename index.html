@@ -164,7 +164,7 @@
     </div>
   </div>
 
-<script>
+  <script>
     const categoryColors = {
       haunted: '#2e1a47',
       alien: '#064e3b',
@@ -174,7 +174,6 @@
       default: '#1e1e28'
     };
 
-    // YOUR FULL DATABASE
     const trips = [
       { id: 'sloss', title: 'Sloss Furnaces', state: 'AL', region: 'Birmingham, AL', category: 'haunted', desc: 'A massive iron plant where the "Graveyard Shift" never truly ended.', history: 'Operating from 1882 to 1971, this industrial giant was known for brutal working conditions. The most famous ghost is "Slag," a cruel foreman who supposedly fell into the melted iron.', facts: ['National Historic Landmark', 'Documented shadow figures in the tunnel', 'Iron-ore dust often forms strange mist patterns'], related: [] },
       { id: 'igloo', title: 'The Igloo City', state: 'AK', region: 'Cantwell, AK', category: 'historic', desc: 'A massive, abandoned concrete igloo rotting in the Alaskan wilderness.', history: 'Built in the 1970s as a hotel that never opened due to code violations. It now stands as a surreal, decaying shell against the mountains.', facts: ['Four stories tall', 'Popular stop for Aurora Borealis photographers', 'Completely hollow interior'], related: [] },
@@ -243,9 +242,7 @@
       return categoryColors[cat] || categoryColors.default;
     }
 
-    // THIS IS THE NEW "SMART IMAGE" LOGIC
     function getImagePath(id) {
-      // It attempts to find a PNG first, then handles errors via the img tag's onerror
       return `images/${id}.png`;
     }
 
@@ -257,7 +254,7 @@
       const imagePath = getImagePath(item.id);
 
       document.getElementById('modal-title').textContent = item.title;
-      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
+      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/${encodeURIComponent(item.title + ' ' + item.region)}`;
       
       let relatedHtml = '';
       if (item.related && item.related.length > 0) {
@@ -423,4 +420,3 @@
   </script>
 </body>
 </html>
-```
