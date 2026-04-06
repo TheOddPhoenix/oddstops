@@ -546,8 +546,6 @@
       if (typeof trips !== 'undefined') {
         renderFeatured();
         renderGrid();
-      } else {
-        console.warn("data.js could not be loaded or 'trips' is undefined.");
       }
       updateAccountDropdown();
       
@@ -556,21 +554,41 @@
           closeSaveMenu(); 
       };
       
+      // CATEGORY BUTTONS
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = () => {
+          // 1. Reset State Selector to default
+          document.getElementById('state-filter').value = 'all';
+          currentState = 'all';
+
+          // 2. Update Button Styling
           document.querySelectorAll('.filter-btn').forEach(b => {
             b.classList.remove('active', 'bg-purple-600', 'text-white');
             b.classList.add('bg-white/5', 'text-zinc-500');
           });
           btn.classList.add('active', 'bg-purple-600', 'text-white');
           btn.classList.remove('bg-white/5', 'text-zinc-500');
+          
+          // 3. Set category and render
           currentCat = btn.dataset.filter;
           resetPagination();
           renderGrid();
         };
       });
 
+      // STATE SELECTOR
       document.getElementById('state-filter').onchange = (e) => {
+        // 1. Reset Category Buttons to "All"
+        currentCat = 'all';
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('active', 'bg-purple-600', 'text-white');
+          b.classList.add('bg-white/5', 'text-zinc-500');
+          if(b.dataset.filter === 'all') {
+             b.classList.add('active', 'bg-purple-600', 'text-white');
+          }
+        });
+
+        // 2. Set state and render
         currentState = e.target.value;
         resetPagination();
         renderGrid();
