@@ -303,7 +303,6 @@ function toggleSave(id) {
 
 function openModal(item) {
       document.getElementById('modal-title').textContent = item.title;
-      // Updated Maps Search Link
       document.getElementById('modal-map-link').href = `http://googleusercontent.com/maps.google.com/search?q=${encodeURIComponent(item.title)}`;
       
       document.getElementById('modal-content').innerHTML = `
@@ -329,11 +328,11 @@ function openModal(item) {
           </div>
         </div>
 
-        <p class="text-zinc-300 text-sm leading-loose mb-10 max-w-prose italic opacity-90">${item.desc}</p>
+        <p class="text-zinc-300 text-base leading-relaxed mb-10">${item.desc}</p>
         
-      <div class="mb-10 text-left">
+        <div class="mb-10 text-left">
           <h4 class="text-purple-500 font-bold uppercase text-xs mb-4 tracking-widest">History & Lore</h4>
-          <div class="space-y-5 text-zinc-400 text-sm leading-relaxed">
+          <div class="space-y-5 text-zinc-400 text-base leading-relaxed">
             ${item.history.split('\n\n').map(paragraph => `<p>${paragraph}</p>`).join('')}
           </div>
         </div>
@@ -342,7 +341,7 @@ function openModal(item) {
           <h4 class="text-purple-500 font-bold uppercase text-xs mb-6 tracking-widest">Key Facts</h4>
           <ul class="space-y-4">
             ${item.funFacts ? item.funFacts.map(fact => `
-              <li class="flex gap-4 items-start text-sm text-zinc-300">
+              <li class="flex gap-4 items-start text-base text-zinc-300">
                 <i data-lucide="star" class="w-5 h-5 text-purple-600 flex-shrink-0"></i>
                 <span>${fact}</span>
               </li>
@@ -358,6 +357,10 @@ function openModal(item) {
           </div>
         </div>
       `;
+      
+      document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
       
       document.getElementById('detail-modal').classList.remove('hidden');
       lucide.createIcons();
