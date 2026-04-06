@@ -3,191 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oddities</title>
+  <title>Oddities | Shell Test</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; }
-    * { box-sizing: border-box; }
-    .app-wrapper { font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-    .oddity-line { width: 24px; height: 2px; background: linear-gradient(to right, currentColor 0%, transparent 100%); }
-    .attraction-card { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease; }
-    .attraction-card:hover { transform: translateY(-6px); box-shadow: 0 0 24px rgba(138, 43, 226, 0.25); }
-    .fade-up { opacity: 0; transform: translateY(30px); animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    html, body { height: 100%; margin: 0; background: #12121a; color: #f5f0e8; }
+    .app-wrapper { font-family: 'Outfit', sans-serif; }
+    .oddity-line { width: 24px; height: 2px; background: linear-gradient(to right, #8a2be2 0%, transparent 100%); }
+    .attraction-card { transition: all 0.3s ease; border: 1px solid rgba(138,43,226,0.1); }
+    .attraction-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-color: rgba(138,43,226,0.4); }
     .skull-spin { animation: skullBounce 3s ease-in-out infinite; }
     @keyframes skullBounce { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    .scroll-container { scrollbar-width: none; -ms-overflow-style: none; }
     .scroll-container::-webkit-scrollbar { display: none; }
-    .like-btn { transition: transform 0.2s ease; }
-    .like-btn:hover { transform: scale(1.2); }
-    .like-btn.liked { color: #8a2be2; }
-    .filter-btn { transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
-    .filter-btn.active { transform: scale(1.05); }
   </style>
 </head>
 <body class="h-full">
-  <div id="app" class="app-wrapper h-full w-full overflow-auto bg-[#12121a]">
-    <nav id="nav-bar" class="sticky top-0 z-50 backdrop-blur-lg border-b" style="background: rgba(18,18,22,0.92); border-color: rgba(138,43,226,0.15);">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="skull-spin"><i data-lucide="skull" style="width:28px;height:28px;color:#8a2be2;"></i></div>
-          <span id="nav-title" class="text-xl font-bold tracking-tight text-[#f5f0e8]">ODDITIES</span>
+  <div id="app" class="app-wrapper h-full w-full overflow-auto">
+    <nav class="sticky top-0 z-50 backdrop-blur-lg border-b border-purple-900/20 bg-[#12121a]/90">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="skull-spin"><i data-lucide="skull" class="text-purple-600"></i></div>
+          <span class="text-xl font-bold tracking-tighter">ODDITIES</span>
         </div>
-        <button id="nav-saved-btn" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#8a2be2] text-[#12121a]">
-          <i data-lucide="bookmark" style="width:14px;height:14px;"></i> <span>My Bucket List</span>
-          <span id="saved-count" class="ml-2 px-1.5 py-0.5 rounded-full text-xs font-bold bg-[#12121a] text-[#8a2be2]">0</span>
-        </button>
+        <div class="flex items-center gap-4 text-sm font-medium">
+          <span class="text-zinc-500 hidden sm:inline">Shell v1.0</span>
+          <div class="bg-purple-600 text-black px-3 py-1 rounded-full flex items-center gap-2">
+            <i data-lucide="bookmark" class="w-3 h-3"></i> <span id="saved-count">0</span>
+          </div>
+        </div>
       </div>
     </nav>
 
-    <header class="relative overflow-hidden py-20 sm:py-32" style="background:linear-gradient(135deg, #0a0a0f 0%, #1a0a2a 50%, #0f0a15 100%);">
-      <div class="max-w-6xl mx-auto px-4 relative z-10">
-        <h1 id="hero-heading" class="text-5xl sm:text-6xl font-black text-[#f5f0e8] mb-6">Explore the Strange,<br>the Mysterious</h1>
-        <p class="text-lg text-[#d4c5e2] max-w-lg mb-8">Discover haunted asylums, cryptid hotspots, and mysteries that defy explanation.</p>
-        <button id="explore-btn" class="px-8 py-4 rounded-lg font-bold bg-[#8a2be2] text-white">Explore Locations</button>
+    <header class="py-20 px-4 text-center bg-gradient-to-b from-[#1a0a2a] to-[#12121a]">
+      <h1 class="text-5xl font-black mb-4 tracking-tight">Explore the <span class="text-purple-500">Unexplained.</span></h1>
+      <p class="text-zinc-400 max-w-xl mx-auto mb-10">Functional shell test. Use filters and search to navigate the mystery.</p>
+      <div class="flex justify-center gap-4">
+        <div class="relative w-full max-w-md">
+          <i data-lucide="search" class="absolute left-4 top-3 w-4 h-4 text-zinc-500"></i>
+          <input id="search-input" type="text" placeholder="Search by name or lore..." class="w-full bg-white/5 border border-white/10 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-purple-500">
+        </div>
       </div>
     </header>
 
-    <section class="py-12 bg-[#12121a]">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="oddity-line h-8 text-[#8a2be2]"></div>
-          <h2 class="text-xl font-bold text-[#f5f0e8]">Oddity of the Week</h2>
-        </div>
-        <div id="featured-card" class="rounded-2xl overflow-hidden cursor-pointer flex bg-[#1e1e28] border border-purple-900/20">
-          </div>
+    <section class="max-w-6xl mx-auto px-4 mb-12">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="oddity-line"></div>
+        <h2 class="font-bold text-zinc-400 uppercase text-xs tracking-widest">Weekly Anomaly</h2>
       </div>
+      <div id="featured-card" class="bg-[#1e1e28] rounded-2xl p-8 border border-purple-900/30 cursor-pointer hover:bg-[#252533] transition-all">
+        </div>
     </section>
 
-    <section class="py-14 bg-[#12121a]">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
-          <h2 class="text-3xl font-bold text-[#f5f0e8]">Discover Oddities</h2>
-          <div class="search-input-wrapper flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 w-full sm:w-64">
-            <i data-lucide="search" class="w-4 h-4 text-[#a09a8e]"></i>
-            <input id="search-input" type="text" placeholder="Search..." class="bg-transparent outline-none w-full text-sm text-[#f5f0e8]">
-          </div>
-        </div>
-        
-        <div class="scroll-container flex gap-2 overflow-x-auto pb-6">
-          <button class="filter-btn active px-5 py-2 rounded-full text-sm font-medium bg-[#8a2be2] text-white" data-filter="all">All Oddities</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white/5 text-[#a09a8e]" data-filter="haunted">Haunted</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white/5 text-[#a09a8e]" data-filter="historic">Historic</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-sm font-medium bg-white/5 text-[#a09a8e]" data-filter="cryptid">Cryptid</button>
-        </div>
+    <div class="max-w-6xl mx-auto px-4 mb-8 overflow-x-auto scroll-container flex gap-3">
+      <button class="filter-btn active bg-purple-600 text-white px-4 py-1.5 rounded-full text-sm font-bold" data-filter="all">All</button>
+      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="haunted">Haunted</button>
+      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="historic">Historic</button>
+      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="cryptid">Cryptid</button>
+    </div>
 
-        <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          </div>
-      </div>
+    <section id="grid-section" class="max-w-6xl mx-auto px-4 pb-20">
+      <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
     </section>
 
-    <footer class="py-10 bg-[#0e0e14] border-t border-purple-900/20">
-      <div class="max-w-6xl mx-auto px-4 text-center">
-        <p class="text-xs text-[#a09a8e]">© 2026 The Odd Phoenix LLC • Embrace the Strange</p>
-      </div>
-    </footer>
-
-    <div id="featured-info-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
-      <div class="w-full max-w-2xl bg-[#1e1e28] rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto border border-purple-900/30">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center">
-          <h2 id="info-modal-title" class="text-2xl font-bold text-white"></h2>
-          <button id="info-modal-close" class="p-2 bg-white/5 rounded-full text-white hover:bg-white/10"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div id="detail-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90">
+      <div class="w-full max-w-2xl bg-[#1e1e28] rounded-3xl overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-[#252533]">
+          <h2 id="modal-title" class="text-xl font-bold">Location Details</h2>
+          <button id="modal-close" class="p-2 bg-white/10 rounded-full hover:bg-red-500/20 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
-        <div id="info-modal-content" class="p-6"></div>
+        <div id="modal-content" class="p-8"></div>
       </div>
     </div>
   </div>
 
   <script>
-    // DATA ARRAY
     const trips = [
-      { id: 'eureka-springs-town', title: 'Eureka Springs, Arkansas', region: 'Carroll County, AR', category: 'historic', tags: ['Historic Town'], tagColors: ['#8a2be2'], desc: 'Built into the Ozark Mountains during the 1880s silver boom...', history: 'Eureka Springs emerged during the 1880s silver boom...', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&fit=crop', gradient: 'linear-gradient(135deg, #2a0a20, #1a0a10)' },
-      { id: 'san-luis-valley', title: 'San Luis Valley, Colorado', region: 'South-Central CO', category: 'cryptid', tags: ['UFO Hotspot'], tagColors: ['#8a2be2'], desc: 'The San Luis Valley is one of North America\'s most active UFO hotspots...', history: 'The San Luis Valley has been a center of activity since pre-Columbian times...', image: 'https://images.unsplash.com/photo-1444080748397-f442aa95c3e5?w=800&fit=crop', gradient: 'linear-gradient(135deg, #1a3a0a, #0a2a1a)' },
-      { id: 'waverly-hills', title: 'Waverly Hills Sanatorium, Kentucky', region: 'Louisville, KY', category: 'haunted', tags: ['Haunted'], tagColors: ['#8a2be2'], desc: 'Built in 1910, this tuberculosis hospital is said to be one of America\'s most haunted places.', history: 'Over 60,000 patients died within these walls...', image: 'https://images.unsplash.com/photo-1518392846015-55a9cc003b25?w=800&fit=crop', gradient: 'linear-gradient(135deg, #2a0a40, #1a1020)' },
-      { id: 'stanley-hotel', title: 'The Stanley Hotel, Colorado', region: 'Estes Park, CO', category: 'haunted', tags: ['The Shining'], tagColors: ['#8a2be2'], desc: 'Luxury hotel that inspired Stephen King\'s "The Shining".', history: 'In 1974, Stephen King spent one night here and conceived his masterpiece.', image: 'https://images.unsplash.com/photo-1551632706-5386c5193122?w=800&fit=crop', gradient: 'linear-gradient(135deg, #1a2a0a, #0a1a1a)' }
-      // Add more as needed
+      { id: 'eureka', title: 'Eureka Springs, Arkansas', category: 'historic', desc: 'Built into the Ozark Mountains during the 1880s silver boom. Known for Victorian architecture and disembodied voices.', history: 'Emerged as a resort town. Mining accidents left emotional scars, leading to reports of Victorian apparitions.', color: '#2a0a20' },
+      { id: 'waverly', title: 'Waverly Hills Sanatorium', category: 'haunted', desc: 'Infamous tuberculosis hospital. Home to the "Body Chute" and countless trapped spirits.', history: 'Opened in 1910. Over 60,000 deaths. Room 502 is noted for extreme poltergeist activity.', color: '#2a0a40' },
+      { id: 'stanley', title: 'The Stanley Hotel', category: 'haunted', desc: 'The Colorado landmark that inspired Stephen King to write "The Shining".', history: 'Opened in 1909. King stayed in Room 217 (now 401) during an off-season night, conceiving his plot.', color: '#1a2a0a' },
+      { id: 'san-luis', title: 'San Luis Valley', category: 'cryptid', desc: 'A remote high-altitude valley famous for UFO sightings and the "Gunnison Creature".', history: 'A center of activity since pre-Columbian times. Sits on major ley line junctions.', color: '#0a2a1a' },
+      { id: 'salem', title: 'Salem Gallows Hill', category: 'historic', desc: 'Site of the 1692 Witch Trial executions. A place of deep historical trauma.', history: 'Nineteen were hanged here. The hysteria lasted 14 months but changed American law forever.', color: '#2a0a30' },
+      { id: 'winchester', title: 'Winchester Mystery House', category: 'cryptid', desc: 'A mansion with stairways to nowhere, built to confuse the spirits of rifle victims.', history: 'Sarah Winchester built continuously for 38 years to appease those killed by her husband\'s rifles.', color: '#2a1a0a' },
+      { id: 'trans-allegheny', title: 'Trans-Allegheny Asylum', category: 'haunted', desc: 'Overcrowded lunatic asylum where barbaric treatments were standard practice.', history: 'Designed for 250, it held 1,900. Screams are still reported echoing from empty wards.', color: '#0a1a2a' },
+      { id: 'bobby-mackey', title: 'Bobby Mackey\'s Music World', category: 'haunted', desc: 'A honky-tonk bar built on a former slaughterhouse with a very dark, violent past.', history: 'Site of a gruesome 1896 murder. Bottle-throwing and physical pushes are frequently reported.', color: '#2a0a0a' },
+      { id: 'myrtles', title: 'Myrtles Plantation', category: 'haunted', desc: 'One of America\'s most haunted homes, allegedly housing exactly ten distinct ghosts.', history: 'Built in 1796. Legend says a slave named Chloe poisoned the family in a tragic cycle of revenge.', color: '#1a2a1a' },
+      { id: 'villisca', title: 'Villisca Axe Murder House', category: 'historic', desc: 'Site of an unsolved 1912 mass murder where an entire family was killed in their sleep.', history: 'Eight victims total. The killer covered all mirrors and windows, a detail that still baffles police.', color: '#1a0a0a' }
     ];
 
-    let likedTrips = new Set();
-    let currentFilter = 'all';
-
-    // APP LOGIC
-    function renderFeaturedOddity() {
+    function renderFeatured() {
       const now = new Date();
       const start = new Date(now.getFullYear(), 0, 1);
       const weekNum = Math.floor((now - start) / 86400000 / 7);
       const featured = trips[weekNum % trips.length];
-      
       const card = document.getElementById('featured-card');
       card.innerHTML = `
-        <div class="w-1/3 min-h-[250px]"><img src="${featured.image}" class="h-full w-full object-cover"></div>
-        <div class="w-2/3 p-8 flex flex-col justify-center">
-          <span class="text-purple-500 text-xs font-bold uppercase mb-2">${featured.region}</span>
-          <h3 class="text-3xl font-bold text-white mb-3">${featured.title}</h3>
-          <p class="text-zinc-400 text-sm line-clamp-3 mb-6">${featured.desc}</p>
-          <button class="text-purple-400 font-bold text-sm text-left">Explore the mystery →</button>
+        <span class="text-purple-500 font-bold text-xs uppercase tracking-widest">${featured.category}</span>
+        <h3 class="text-3xl font-bold mt-2 mb-4">${featured.title}</h3>
+        <p class="text-zinc-400 leading-relaxed max-w-2xl">${featured.desc}</p>
+        <div class="mt-6 flex items-center gap-2 text-purple-400 text-sm font-bold">
+          View Full Lore <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </div>
       `;
-      card.onclick = () => openDetailModal(featured);
+      card.onclick = () => openModal(featured);
+      lucide.createIcons();
     }
 
-    function createTripCard(trip, index) {
-      const card = document.createElement('div');
-      card.className = "attraction-card bg-[#1e1e28] rounded-xl overflow-hidden border border-white/5 cursor-pointer";
-      card.innerHTML = `
-        <img src="${trip.image}" class="h-48 w-full object-cover">
-        <div class="p-5">
-          <span class="text-purple-500 text-[10px] font-bold uppercase">${trip.category}</span>
-          <h3 class="text-white font-bold text-lg mt-1">${trip.title}</h3>
-          <p class="text-zinc-500 text-xs mt-2 line-clamp-2">${trip.desc}</p>
-        </div>
-      `;
-      card.onclick = () => openDetailModal(trip);
-      return card;
-    }
-
-    function renderGrid() {
+    function renderGrid(data = trips) {
       const grid = document.getElementById('trip-grid');
       grid.innerHTML = '';
-      const filtered = currentFilter === 'all' ? trips : trips.filter(t => t.category === currentFilter);
-      filtered.forEach((trip, i) => grid.appendChild(createTripCard(trip, i)));
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'attraction-card bg-[#1e1e28] rounded-2xl p-6 cursor-pointer';
+        div.innerHTML = `
+          <div class="h-2 w-12 rounded-full mb-4" style="background:${item.color}"></div>
+          <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">${item.category}</span>
+          <h3 class="text-lg font-bold mt-1 text-white">${item.title}</h3>
+          <p class="text-zinc-500 text-xs mt-3 line-clamp-2">${item.desc}</p>
+        `;
+        div.onclick = () => openModal(item);
+        grid.appendChild(div);
+      });
     }
 
-    function openDetailModal(trip) {
-      document.getElementById('info-modal-title').textContent = trip.title;
-      document.getElementById('info-modal-content').innerHTML = `
-        <img src="${trip.image}" class="w-full h-64 object-cover rounded-xl mb-6">
-        <p class="text-zinc-300 leading-relaxed mb-6">${trip.desc}</p>
-        <h4 class="text-purple-400 font-bold mb-2">History & Lore</h4>
-        <p class="text-zinc-400 text-sm">${trip.history || 'Discovery pending...'}</p>
+    function openModal(item) {
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-content').innerHTML = `
+        <div class="w-full h-4 rounded-xl mb-6" style="background:${item.color}"></div>
+        <p class="text-zinc-300 text-lg mb-8 leading-relaxed">${item.desc}</p>
+        <div class="bg-black/20 p-6 rounded-2xl border border-white/5">
+          <h4 class="text-purple-500 font-bold text-sm uppercase mb-3 tracking-widest">History & Lore</h4>
+          <p class="text-zinc-400 leading-relaxed text-sm">${item.history}</p>
+        </div>
       `;
-      document.getElementById('featured-info-modal').classList.remove('hidden');
+      document.getElementById('detail-modal').classList.remove('hidden');
     }
 
-    // STARTUP
+    // Controls
     window.onload = () => {
+      renderFeatured();
       renderGrid();
-      renderFeaturedOddity();
       lucide.createIcons();
 
-      document.getElementById('info-modal-close').onclick = () => {
-        document.getElementById('featured-info-modal').classList.add('hidden');
-      };
-
-      document.getElementById('explore-btn').onclick = () => {
-        document.getElementById('grid-section').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('modal-close').onclick = () => document.getElementById('detail-modal').classList.add('hidden');
+      
+      document.getElementById('search-input').oninput = (e) => {
+        const val = e.target.value.toLowerCase();
+        const filtered = trips.filter(t => t.title.toLowerCase().includes(val) || t.desc.toLowerCase().includes(val));
+        renderGrid(filtered);
       };
 
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-[#8a2be2]', 'text-white'));
-          btn.classList.add('bg-[#8a2be2]', 'text-white');
-          currentFilter = btn.dataset.filter;
-          renderGrid();
-        };
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-purple-600', 'text-white'));
+          btn.classList.add('bg-purple-600', 'text-white');
+          const f = btn.dataset.filter;
+          renderGrid(f === 'all' ? trips : trips.filter(t => t.category === f));
+        }
       });
     };
   </script>
