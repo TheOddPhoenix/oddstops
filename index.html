@@ -164,7 +164,7 @@
     </div>
   </div>
 
-  <script>
+<script>
     const categoryColors = {
       haunted: '#2e1a47',
       alien: '#064e3b',
@@ -174,13 +174,14 @@
       default: '#1e1e28'
     };
 
+    // YOUR FULL DATABASE
     const trips = [
       { id: 'sloss', title: 'Sloss Furnaces', state: 'AL', region: 'Birmingham, AL', category: 'haunted', desc: 'A massive iron plant where the "Graveyard Shift" never truly ended.', history: 'Operating from 1882 to 1971, this industrial giant was known for brutal working conditions. The most famous ghost is "Slag," a cruel foreman who supposedly fell into the melted iron.', facts: ['National Historic Landmark', 'Documented shadow figures in the tunnel', 'Iron-ore dust often forms strange mist patterns'], related: [] },
       { id: 'igloo', title: 'The Igloo City', state: 'AK', region: 'Cantwell, AK', category: 'historic', desc: 'A massive, abandoned concrete igloo rotting in the Alaskan wilderness.', history: 'Built in the 1970s as a hotel that never opened due to code violations. It now stands as a surreal, decaying shell against the mountains.', facts: ['Four stories tall', 'Popular stop for Aurora Borealis photographers', 'Completely hollow interior'], related: [] },
       { id: 'birdcage', title: 'Bird Cage Theatre', state: 'AZ', region: 'Tombstone, AZ', category: 'historic', desc: 'The "wickedest night spot" between New Orleans and San Francisco.', history: 'Site of 26 deaths and over 140 bullet holes in the walls. It served as a theater, saloon, and brothel during the silver boom.', facts: ['The world\'s longest poker game lasted 8 years here', 'Original stage curtains still intact', 'Frequent reports of phantom cigar smoke'], related: [] },
-      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', desc: 'A Victorian-era town built on healing springs and deep lore.', history: 'Founded in 1879, Eureka Springs was built around 60 natural cold-water springs believed to have healing powers. The entire city is listed on the National Register of Historic Places.', facts: ['No two streets intersect at a 90-degree angle', 'Underground tunnels and hidden levels', 'Victorian architecture preserved'], related: ['falk', 'crescent'] },
+      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', desc: 'A Victorian-era town built on healing springs and deep lore.', history: 'Founded in 1879, Eureka Springs was built around 60 natural cold-water springs believed to have healing powers. The entire city is listed on the National Register of Historic Places.', facts: ['No two streets intersect at a 90-degree angle', 'Underground tunnels and hidden levels', 'Victorian architecture preserved'], related: ['crescent'] },
       { id: 'queen-mary', title: 'The Queen Mary', state: 'CA', region: 'Long Beach, CA', category: 'haunted', desc: 'A retired ocean liner with more spirits than staterooms.', history: 'Once a luxury liner and WWII troopship, the ship is now permanently docked. Stateroom B340 is so active it was once closed to the public.', facts: ['The "Grey Ghost" was its WWII nickname', 'First-class pool is a hotspot for sightings', 'Over 49 recorded deaths on board'], related: [] },
-      { id: 'stanley', title: 'The Stanley Hotel', state: 'CO', region: 'Estes Park, CO', category: 'haunted', desc: 'The mountain resort that gave Stephen King "The Shining."', history: 'Opened in 1909, this grand hotel is famous for its ghostly piano music and the spirit of its founder wandering the lobby.', facts: ['Room 217 is where King stayed', 'Features a real hedge maze', 'Phantom children on the 4th floor'], related: ['ufo-watchtower'] },
+      { id: 'stanley', title: 'The Stanley Hotel', state: 'CO', region: 'Estes Park, CO', category: 'haunted', desc: 'The mountain resort that gave Stephen King "The Shining."', history: 'Opened in 1909, this grand hotel is famous for its ghostly piano music and the spirit of its founder wandering the lobby.', facts: ['Room 217 is where King stayed', 'Features a real hedge maze', 'Phantom children on the 4th floor'], related: [] },
       { id: 'union-cem', title: 'Union Cemetery', state: 'CT', region: 'Easton, CT', category: 'cemetery', desc: 'Home to the famous "White Lady" of Easton.', history: 'One of the oldest and most haunted cemeteries in the US. The White Lady has been seen by off-duty police officers and captured on film.', facts: ['Dating back to the 1700s', 'The "Red Eyes" spirit stalks the woods', 'Documented by Ed and Lorraine Warren'], related: [] },
       { id: 'fort-del', title: 'Fort Delaware', state: 'DE', region: 'Pea Patch Island, DE', category: 'historic', desc: 'A Union fortress and prison for Confederate POWs.', history: 'Known as the "Andersonville of the North," thousands of prisoners died here from disease and starvation.', facts: ['Accessible only by ferry', 'Frequent EVP recordings', 'The "Dungeon" area is active'], related: [] },
       { id: 'oct-house', title: 'The Octagon House', state: 'DC', region: 'Washington, DC', category: 'haunted', desc: 'The haunted temporary White House of 1814.', history: 'After the British burned the White House, President Madison moved here. It is haunted by daughters of the original owner.', facts: ['The bells reportedly ring on their own', 'A phantom carpet is seen unrolling', 'Dolly Madison\'s spirit hosts parties'], related: [] },
@@ -188,7 +189,7 @@
       { id: 'hamilton-inn', title: 'Hamilton-Turner Inn', state: 'GA', region: 'Savannah, GA', category: 'haunted', desc: 'Savannah\'s most elegant haunted mansion.', history: 'Built in 1873, it was the first house in Savannah with electricity. Haunted by a cigar-smoking man on the roof.', facts: ['Inspired "Midnight in the Garden of Good and Evil"', 'Billiard balls heard rolling', 'Confederate soldier buried nearby'], related: [] },
       { id: 'morgue-bar', title: 'Old Lahaina Morgue', state: 'HI', region: 'Lahaina, HI', category: 'historic', desc: 'A former plantation morgue turned into a modern oddity.', history: 'Once serving the local sugar hospital, this site has been repurposed but keeps its eerie energy.', facts: ['Original cooling lockers preserved', 'Near historic banyan tree', 'Reports of cold spots in back rooms'], related: [] },
       { id: 'old-idaho', title: 'Old Idaho Penitentiary', state: 'ID', region: 'Boise, ID', category: 'historic', desc: 'A terrifying stone prison built by the inmates.', history: 'Housing criminals from 1872 to 1973, it saw riots and extreme solitary confinement.', facts: ['The "Gallows" room remains intact', 'Solitary cells called "The Coolers"', 'Execution site of Raymond Snowden'], related: [] },
-      { id: 'joliet', title: 'Old Joliet Prison', state: 'IL', region: 'Joliet, IL', category: 'historic', desc: 'The limestone fortress that held the world\'s most infamous.', history: 'Opened in 1858, it held John Wayne Gacy and inspired the setting for "The Blues Brothers."', facts: ['Hand-carved limestone walls', 'Shadow figures in hospital wing', 'Massive Gothic gatehouse'], related: ['bachelors'] },
+      { id: 'joliet', title: 'Old Joliet Prison', state: 'IL', region: 'Joliet, IL', category: 'historic', desc: 'The limestone fortress that held the world\'s most infamous.', history: 'Opened in 1858, it held John Wayne Gacy and inspired the setting for "The Blues Brothers."', facts: ['Hand-carved limestone walls', 'Shadow figures in hospital wing', 'Massive Gothic gatehouse'], related: [] },
       { id: 'story-inn', title: 'Story Inn', state: 'IN', region: 'Nashville, IN', category: 'haunted', desc: 'A general store turned inn where the "Blue Lady" resides.', history: 'The Blue Lady (wife of the original owner) leaves the smell of gardenias in the air.', facts: ['Haunted room above the kitchen', 'Town population of 3', 'Blue lights in the rooms'], related: [] },
       { id: 'villisca', title: 'Axe Murder House', state: 'IA', region: 'Villisca, IA', category: 'haunted', desc: 'Site of a brutal 1912 unsolved mystery.', history: 'An entire family and guests were bludgeoned in 1912. No one was ever convicted.', facts: ['Axes found at scene', 'No electricity or running water', 'Overnight stays available'], related: [] },
       { id: 'sallie', title: 'The Sallie House', state: 'KS', region: 'Atchison, KS', category: 'haunted', desc: 'The home of a malevolent child spirit.', history: 'A young girl named Sallie died during a botched appendectomy. She is known for being aggressive toward men.', facts: ['Scratches and physical contact reported', 'Equipment often fails inside', 'Most haunted house in Kansas'], related: [] },
@@ -213,7 +214,7 @@
       { id: 'loveland', title: 'Loveland Castle', state: 'OH', region: 'Loveland, OH', category: 'historic', desc: 'A handmade medieval castle in the heart of Ohio.', history: 'Built stone-by-stone by Harry Andrews using river rocks.', facts: ['Harry\'s spirit in Knights room', 'White Lady on riverbank', 'Medieval weaponry collection'], related: [] },
       { id: 'skirvin', title: 'Skirvin Hotel', state: 'OK', region: 'Oklahoma City, OK', category: 'haunted', desc: 'The hotel that haunts visiting NBA teams.', history: 'Famous for Effie, a maid who reportedly jumped from the 10th floor.', facts: ['NBA stars refuse to stay', 'Crying babies heard', 'Most haunted hotel in South'], related: [] },
       { id: 'oregon-vortex', title: 'Oregon Vortex', state: 'OR', region: 'Gold Hill, OR', category: 'historic', desc: 'A place where gravity and perspective fail.', history: 'An "Old House of Mystery" where people appear to shrink or grow.', facts: ['"Forbidden Ground"', 'Vortex 165 feet wide', 'Balls roll uphill'], related: [] },
-      { id: 'eastern-state', title: 'Eastern State Pen', state: 'PA', region: 'Philadelphia, PA', category: 'historic', desc: 'The fortress of solitary confinement.', history: 'The world\'s first true penitentiary. Al Capone stayed here.', facts: ['Capone\'s cell', 'Shadow figures block 12', 'Gothic dread architecture'], related: ['mutter'] },
+      { id: 'eastern-state', title: 'Eastern State Pen', state: 'PA', region: 'Philadelphia, PA', category: 'historic', desc: 'The fortress of solitary confinement.', history: 'The world\'s first true penitentiary. Al Capone stayed here.', facts: ['Capone\'s cell', 'Shadow figures block 12', 'Gothic dread architecture'], related: [] },
       { id: 'graduate', title: 'The Graduate Hotel', state: 'RI', region: 'Providence, RI', category: 'haunted', desc: 'A classic hotel with phantom guests.', history: 'Once the Biltmore, it was a hub for high society and mobsters.', facts: ['Elevator stops unexplained', 'Phantom top-floor parties', 'H.P. Lovecraft setting'], related: [] },
       { id: 'old-jail', title: 'Old Charleston Jail', state: 'SC', region: 'Charleston, SC', category: 'historic', desc: 'Home of America\'s first female serial killer.', history: 'Lavinia Fisher was held here. The jail saw thousands of deaths.', facts: ['Lavinia in wedding dress', 'Dungeon activity', 'Most haunted in Charleston'], related: [] },
       { id: 'mount-rushmore', title: 'Rushmore Secret Vault', state: 'SD', region: 'Keystone, SD', category: 'historic', desc: 'A hidden hall of records behind the faces.', history: 'Borglum began carving a hall behind Lincoln\'s head to store documents.', facts: ['Not accessible to public', 'Porcelain panels of Constitution', '20-foot tall doorway'], related: [] },
@@ -242,11 +243,18 @@
       return categoryColors[cat] || categoryColors.default;
     }
 
+    // THIS IS THE NEW "SMART IMAGE" LOGIC
+    function getImagePath(id) {
+      // It attempts to find a PNG first, then handles errors via the img tag's onerror
+      return `images/${id}.png`;
+    }
+
     function openModal(id) {
       const item = trips.find(t => t.id === id);
       if(!item) return;
 
       const color = getCategoryColor(item.category);
+      const imagePath = getImagePath(item.id);
 
       document.getElementById('modal-title').textContent = item.title;
       document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
@@ -274,8 +282,12 @@
       }
 
       document.getElementById('modal-content').innerHTML = `
-        <div class="w-full h-72 rounded-[2rem] flex items-center justify-center shadow-inner" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
-          <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+        <div class="w-full h-72 rounded-[2rem] flex items-center justify-center shadow-inner overflow-hidden bg-zinc-900">
+          <img src="${imagePath}" alt="${item.title}" class="w-full h-full object-cover" 
+               onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
+          <div class="hidden w-full h-full items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
+            <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+          </div>
         </div>
         <div>
           <div class="flex items-center gap-2 mb-4 text-purple-500">
@@ -310,11 +322,16 @@
       const featured = trips.find(t => t.id === 'eureka');
       if(!featured) return;
       const color = getCategoryColor(featured.category);
+      const imagePath = getImagePath(featured.id);
 
       document.getElementById('featured-card').innerHTML = `
         <div onclick="openModal('${featured.id}')" class="flex flex-col md:flex-row w-full group">
-          <div class="w-full md:w-2/5 min-h-[350px] flex items-center justify-center border-r border-white/5" style="background: linear-gradient(135deg, ${color}, #12121a)">
-            <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+          <div class="w-full md:w-2/5 min-h-[350px] flex items-center justify-center border-r border-white/5 overflow-hidden bg-zinc-900" style="background: linear-gradient(135deg, ${color}, #12121a)">
+            <img src="${imagePath}" class="w-full h-full object-cover" 
+                 onerror="this.onerror=null; this.src='images/${featured.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
+            <div class="hidden w-full h-full items-center justify-center">
+                <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
+            </div>
           </div>
           <div class="p-12 flex flex-col justify-center flex-1 text-left relative">
             <h3 class="text-4xl font-black mb-2 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors uppercase">${featured.title}</h3>
@@ -343,11 +360,16 @@
 
       filtered.forEach(item => {
         const color = getCategoryColor(item.category);
+        const imagePath = getImagePath(item.id);
         const card = document.createElement('div');
         card.className = 'attraction-card rounded-[2.5rem] p-8 cursor-pointer relative';
         card.innerHTML = `
-          <div class="h-48 rounded-2xl mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
-            <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming Soon</span>
+          <div class="h-48 rounded-2xl mb-6 flex items-center justify-center overflow-hidden bg-zinc-900">
+            <img src="${imagePath}" alt="${item.title}" class="w-full h-full object-cover" 
+                 onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
+            <div class="hidden w-full h-full items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
+              <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming Soon</span>
+            </div>
           </div>
           <div class="text-left">
             <h3 class="text-2xl font-black text-white leading-tight uppercase">${item.title}</h3>
