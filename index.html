@@ -250,22 +250,29 @@ function toggleSave(id) {
       alert("To create a Bucket List and save this oddity, please create an account.\n\n(Account creation is coming soon!)");
     }
     
-    function renderFeatured() {
+function renderFeatured() {
       const featured = trips[0];
       const isLiked = likedTrips.has(featured.id);
+      
       document.getElementById('featured-card').innerHTML = `
-        <div class="w-full md:w-2/5 min-h-[300px] flex items-center justify-center border-r border-white/5" style="background: linear-gradient(135deg, ${featured.color}, #12121a)">
-          <i data-lucide="image" class="w-12 h-12 text-white/10"></i>
-        </div>
-        <div class="p-10 flex flex-col justify-center flex-1 text-left">
-          <span class="text-purple-500 text-[10px] font-black uppercase mb-2 text-left">${featured.region}</span>
-          <h3 class="text-3xl font-black mb-4 text-[#f5f0e8] text-left leading-tight">${featured.title}</h3>
-          <p class="text-zinc-400 mb-8 line-clamp-2 leading-relaxed text-left">${featured.desc}</p>
-          <div class="flex gap-4">
-            <button onclick="event.stopPropagation(); toggleSave('${featured.id}')" class="p-4 bg-white/5 rounded-2xl hover:bg-white/10 ${isLiked ? 'liked' : ''} transition-all">
-              <i data-lucide="bookmark" class="w-5 h-5"></i>
-            </button>
-            <button onclick="openModal(trips.find(t=>t.id==='${featured.id}'))" class="px-8 bg-white/5 rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-white/10 text-white">Learn More</button>
+        <div onclick="openModal(trips.find(t=>t.id==='${featured.id}'))" class="flex flex-col md:flex-row w-full cursor-pointer hover:bg-white/[0.02] transition-all group">
+          <div class="w-full md:w-2/5 min-h-[300px] flex items-center justify-center border-r border-white/5" style="background: linear-gradient(135deg, ${featured.color}, #12121a)">
+            <div class="flex flex-col items-center gap-2">
+              <i data-lucide="camera-off" class="w-12 h-12 text-white/10"></i>
+              <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest text-center">Photo Coming Soon</span>
+            </div>
+          </div>
+          <div class="p-10 flex flex-col justify-center flex-1 text-left relative">
+            <span class="text-purple-500 text-[10px] font-black uppercase mb-2">${featured.region}</span>
+            <h3 class="text-3xl font-black mb-4 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors">${featured.title}</h3>
+            <p class="text-zinc-400 text-base mb-8 line-clamp-2 leading-relaxed">${featured.desc}</p>
+            
+            <div class="flex gap-4">
+              <button onclick="event.stopPropagation(); toggleSave('${featured.id}')" class="p-4 bg-white/5 rounded-2xl hover:bg-white/10 ${isLiked ? 'liked' : ''} transition-all border border-white/5">
+                <i data-lucide="bookmark" class="w-5 h-5"></i>
+              </button>
+              <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-600 self-center">Click card to explore</span>
+            </div>
           </div>
         </div>
       `;
@@ -332,7 +339,7 @@ function openModal(item) {
         
         <div class="mb-10 text-left">
           <h4 class="text-purple-500 font-bold uppercase text-xs mb-4 tracking-widest">History & Lore</h4>
-          <div class="space-y-5 text-zinc-400 text-base leading-relaxed">
+          <div class="space-y-5 text-zinc-300 text-base leading-relaxed">
             ${item.history.split('\n\n').map(paragraph => `<p>${paragraph}</p>`).join('')}
           </div>
         </div>
@@ -345,7 +352,7 @@ function openModal(item) {
                 <i data-lucide="star" class="w-5 h-5 text-purple-600 flex-shrink-0"></i>
                 <span>${fact}</span>
               </li>
-            `).join('') : '<li class="italic text-zinc-600">Gathering more facts...</li>'}
+            `).join('') : '<li class="text-zinc-600">Gathering more facts...</li>'}
           </ul>
         </div>
 
@@ -357,10 +364,6 @@ function openModal(item) {
           </div>
         </div>
       `;
-      
-      document.getElementById('detail-modal').classList.remove('hidden');
-      lucide.createIcons();
-    }
       
       document.getElementById('detail-modal').classList.remove('hidden');
       lucide.createIcons();
