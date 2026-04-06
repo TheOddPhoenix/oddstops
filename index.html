@@ -179,19 +179,223 @@
 
   <script>
     const trips = [
-      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', color: '#8a2be2', desc: 'A Victorian-era town built on healing springs and deep lore.', related: ['falk', 'crescent'] },
-      { id: 'waverly', title: 'Waverly Hills Sanatorium', state: 'KY', region: 'Louisville, KY', category: 'haunted', color: '#4b0082', desc: 'A Tudor Gothic monument to a dark era of American medicine.' },
-      { id: 'san-luis', title: 'San Luis Valley', state: 'CO', region: 'South-Central CO', category: 'alien', color: '#006400', desc: 'North America\'s most active UFO and paranormal hotspot.', related: ['ufo-watchtower', 'eureka'] },
-      { id: 'villisca', title: 'Axe Murder House', state: 'IA', region: 'Villisca, IA', category: 'cemetery', color: '#310000', desc: 'Site of one of the most brutal unsolved mass murders in American history.' },
-      { id: 'mothman', title: 'Mothman Site', state: 'WV', region: 'Point Pleasant, WV', category: 'cryptid', color: '#1a1a1a', desc: 'The epicenter of a 13-month reign of terror by a winged creature.' },
-      { id: 'mutter', title: 'Mütter Museum', state: 'PH', region: 'Philadelphia, PA', category: 'historic', color: '#5c4033', desc: 'A world-renowned collection of anatomical specimens and medical oddities.' },
-      { id: 'bachelors', title: 'Bachelor\'s Grove', state: 'IL', region: 'Midlothian, IL', category: 'cemetery', color: '#2d3b2d', desc: 'Widely considered the most haunted graveyard in America.' },
-      { id: 'falk', title: 'Fouke Monster Bog', state: 'AR', region: 'Fouke, AR', category: 'cryptid', color: '#1b3022', desc: 'Home to the aggressive, three-toed Southern Sasquatch.' },
-      { id: 'centralia', title: 'Centralia Mine Fire', state: 'PA', region: 'Centralia, PA', category: 'historic', color: '#444444', desc: 'A town burning from the inside out since a 1962 coal fire.' },
-      { id: 'winchester', title: 'Winchester House', state: 'CA', region: 'San Jose, CA', category: 'historic', color: '#3d2b1f', desc: 'A labyrinth of architectural madness built to confuse spirits.' },
-      { id: 'crescent', title: 'Crescent Hotel', state: 'AR', region: 'Eureka Springs, AR', category: 'haunted', color: '#2e1a47', desc: 'Known as "America\'s Most Haunted Hotel," this limestone manor served as a fraudulent cancer hospital in the 1930s. Guests report sightings of "Theodora" and the infamous "Michael," a stonemason who fell during construction.', related: ['eureka'] },
-      { id: 'ufo-watchtower', title: 'UFO Watchtower', state: 'CO', region: 'Hooper, CO', category: 'alien', color: '#004d40', desc: 'A roadside observation deck in the high-altitude desert of the San Luis Valley. Surrounded by two "psychic vortices," this spot has recorded dozens of unexplained aerial phenomena and features a "rock garden" of offerings left for extraterrestrials.', related: ['san-luis'] }
-    ];
+  { 
+    id: 'eureka', 
+    title: 'Eureka Springs', 
+    state: 'AR', 
+    region: 'Carroll County, AR', 
+    category: 'historic', 
+    color: '#8a2be2', 
+    desc: 'A Victorian-era town built on healing springs and deep lore.',
+    history: 'Founded in 1879, Eureka Springs was built around 60 natural cold-water springs believed by indigenous peoples and early settlers to have miraculous healing powers. The entire city is listed on the National Register of Historic Places, featuring a labyrinth of winding, steep streets where no two roads intersect at a 90-degree angle.',
+    facts: [
+      'The entire downtown is built into steep Ozark limestone bluffs',
+      'Underground tunnels and "hidden" levels exist beneath the streets',
+      'Home to the massive "Christ of the Ozarks" statue',
+      'Known for its "Palace Hotel" and bathhouse culture'
+    ],
+    features: ['Victorian Architecture', 'Healing Springs', 'Underground Tunnels'],
+    related: ['falk', 'crescent'] 
+  },
+  { 
+    id: 'waverly', 
+    title: 'Waverly Hills Sanatorium', 
+    state: 'KY', 
+    region: 'Louisville, KY', 
+    category: 'haunted', 
+    color: '#4b0082', 
+    desc: 'A Tudor Gothic monument to a dark era of American medicine.',
+    history: 'Opened in 1910 to combat a massive Tuberculosis outbreak, Waverly Hills became a self-contained city. At its height, it housed over 400 patients. After antibiotics made the facility obsolete in 1961, it fell into decay, gaining a reputation as one of the most haunted locations in the world.',
+    facts: [
+      'The "Body Chute" is a 500-foot tunnel used to remove the deceased',
+      'Room 502 is the epicenter of reported paranormal activity',
+      'Over 60,000 deaths occurred within these walls',
+      'The building features rare Tudor Gothic architecture'
+    ],
+    features: ['Haunted Hospital', 'Ghost Tours', 'Gothic Architecture'],
+    related: [] 
+  },
+  { 
+    id: 'san-luis', 
+    title: 'San Luis Valley', 
+    state: 'CO', 
+    region: 'South-Central CO', 
+    category: 'alien', 
+    color: '#006400', 
+    desc: 'North America\'s most active UFO and paranormal hotspot.',
+    history: 'This high-altitude desert valley has been a center of strange phenomena for centuries. From indigenous legends of "Star People" to modern-day cattle mutilations and "Silent Vulcan" craft sightings, the valley remains a magnet for researchers.',
+    facts: [
+      'Consistent sightings of "Orbs" and "Cigar-shaped" craft',
+      'Home to the first documented case of unexplained cattle mutilation (1967)',
+      'High concentrations of crystalline sand and psychic "vortices"',
+      'Bordered by the mysterious Great Sand Dunes'
+    ],
+    features: ['UFO Sightings', 'Psychic Vortices', 'Dark Sky Site'],
+    related: ['ufo-watchtower', 'eureka'] 
+  },
+  { 
+    id: 'villisca', 
+    title: 'Axe Murder House', 
+    state: 'IA', 
+    region: 'Villisca, IA', 
+    category: 'cemetery', 
+    color: '#310000', 
+    desc: 'Site of a brutal, unsolved 1912 mass murder.',
+    history: 'On a quiet night in June 1912, an entire family and two guests were bludgeoned to death. Despite multiple suspects and trials, no one was ever convicted. The house remains in its original 1912 condition, with no electricity or running water.',
+    facts: [
+      'The killer hid in the attic for hours before the attack',
+      'The axes used were found at the scene, wiped partially clean',
+      'Visitors report moving objects and children’s voices',
+      'The house is a rare example of a "preserved crime scene" museum'
+    ],
+    features: ['Unsolved Mystery', 'Preserved 1912 Interior', 'Overnight Stays'],
+    related: [] 
+  },
+  { 
+    id: 'mothman', 
+    title: 'Mothman Site', 
+    state: 'WV', 
+    region: 'Point Pleasant, WV', 
+    category: 'cryptid', 
+    color: '#1a1a1a', 
+    desc: 'The epicenter of a 13-month reign of terror by a winged creature.',
+    history: 'Between 1966 and 1967, dozens of residents reported a 7-foot-tall man with 10-foot wings and glowing red eyes. The sightings culminated in the tragic Silver Bridge collapse, leading many to believe the creature was a harbinger of doom.',
+    facts: [
+      'Sightings centered around the "TNT Area," a former WWII bunker',
+      'Men In Black reportedly harassed witnesses in the town',
+      'Home to a world-famous 12-foot chrome Mothman statue',
+      'Annual Mothman Festival attracts thousands of believers'
+    ],
+    features: ['Cryptid Legend', 'TNT Bunkers', 'Statue & Museum'],
+    related: [] 
+  },
+  { 
+    id: 'mutter', 
+    title: 'Mütter Museum', 
+    state: 'PH', 
+    region: 'Philadelphia, PA', 
+    category: 'historic', 
+    color: '#5c4033', 
+    desc: 'A world-renowned collection of anatomical specimens.',
+    history: 'Part of The College of Physicians of Philadelphia, this museum was started in 1858 by Dr. Thomas Dent Mütter to improve medical education. It houses thousands of unique specimens that showcase the strange and complex history of the human body.',
+    facts: [
+      'Displays a piece of Albert Einstein’s brain',
+      'Home to the "Soap Lady" (a body naturally mummified into wax)',
+      'Houses the tallest skeleton currently on display in North America',
+      'Contains a collection of 139 human skulls'
+    ],
+    features: ['Medical History', 'Anatomical Curiosities', 'Historic Library'],
+    related: [] 
+  },
+  { 
+    id: 'bachelors', 
+    title: 'Bachelor\'s Grove', 
+    state: 'IL', 
+    region: 'Midlothian, IL', 
+    category: 'cemetery', 
+    color: '#2d3b2d', 
+    desc: 'Widely considered the most haunted graveyard in America.',
+    history: 'This small, abandoned cemetery dates back to the 1840s. Hidden deep within the Rubio Woods Forest Preserve, it gained notoriety in the 1970s and 80s for hundreds of reports of ghost lights, phantom farmhouses, and a "white lady" carrying a child.',
+    facts: [
+      'Famous for the 1991 "Madonna of Bachelor\'s Grove" photograph',
+      'Reports of a phantom farmhouse that disappears as you approach',
+      'A "Ghost Carriage" has been seen rising from the nearby lagoon',
+      'The cemetery is legally closed to the public after dark'
+    ],
+    features: ['Phantom Structures', 'Ghost Lights', 'Abandoned Site'],
+    related: [] 
+  },
+  { 
+    id: 'falk', 
+    title: 'Fouke Monster Bog', 
+    state: 'AR', 
+    region: 'Fouke, AR', 
+    category: 'cryptid', 
+    color: '#1b3022', 
+    desc: 'Home to the aggressive, three-toed Southern Sasquatch.',
+    history: 'The Fouke Monster became a national sensation in the 1970s following a series of attacks on local homes. Unlike the peaceful Bigfoot of the Northwest, the "Beast of Boggy Creek" is described as a predatory, foul-smelling creature with only three toes.',
+    facts: [
+      'Inspired the classic 1972 film "The Legend of Boggy Creek"',
+      'Tracks found in 1971 showed a distinct 3-toed footprint',
+      'Sightings consistently occur near the Sulphur River bottoms',
+      'Known for high-pitched, scream-like vocalizations'
+    ],
+    features: ['Swamp Cryptid', 'Boggy Creek', 'Monster Mart Museum'],
+    related: ['eureka'] 
+  },
+  { 
+    id: 'centralia', 
+    title: 'Centralia Mine Fire', 
+    state: 'PA', 
+    region: 'Centralia, PA', 
+    category: 'historic', 
+    color: '#444444', 
+    desc: 'A town burning from the inside out since a 1962 coal fire.',
+    history: 'A landfill fire accidentally ignited a massive vein of anthracite coal beneath the town. The fire has been burning for over 60 years and is expected to burn for another 250. Most of the town was demolished after toxic gases began venting into homes.',
+    facts: [
+      'The ground temperature can exceed 1,000°F in some spots',
+      'The famous "Graffiti Highway" was recently covered in dirt',
+      'Only a handful of residents remain in the "ghost town"',
+      'The zip code 17927 was revoked by the USPS in 2002'
+    ],
+    features: ['Underground Fire', 'Ghost Town', 'Venting Smoke'],
+    related: [] 
+  },
+  { 
+    id: 'winchester', 
+    title: 'Winchester House', 
+    state: 'CA', 
+    region: 'San Jose, CA', 
+    category: 'historic', 
+    color: '#3d2b1f', 
+    desc: 'A labyrinth of architectural madness built to confuse spirits.',
+    history: 'Sarah Winchester, heiress to the rifle fortune, believed she was haunted by the ghosts of those killed by Winchester guns. To appease them, she kept construction going on her mansion 24/7 for 38 years, resulting in a maze of bizarre features.',
+    facts: [
+      'Contains stairways that lead directly into the ceiling',
+      'Doors open into 2-story drops to the ground below',
+      'The number 13 is repeated in windows, stairs, and drains',
+      'Features 160 rooms, 40 bedrooms, and 2,000 doors'
+    ],
+    features: ['Architectural Oddity', 'Occult History', 'Mansion Tours'],
+    related: [] 
+  },
+  { 
+    id: 'crescent', 
+    title: 'Crescent Hotel', 
+    state: 'AR', 
+    region: 'Eureka Springs, AR', 
+    category: 'haunted', 
+    color: '#2e1a47', 
+    desc: 'Known as "America\'s Most Haunted Hotel."',
+    history: 'Built in 1886 as a luxury resort, it later became a college and then a fraudulent cancer hospital run by Norman Baker. Baker’s "cures" were deadly, and it is said the spirits of his victims still roam the halls and the basement morgue.',
+    facts: [
+      'The basement still contains the original morgue and autopsy table',
+      'The "Ghost of Michael" is a stonemason who fell during construction',
+      'Theodora is a spirit often seen fumbling with keys near Room 419',
+      'The hotel hosts nightly ghost tours ending in the morgue'
+    ],
+    features: ['Haunted Hotel', 'Morgue Tours', 'Victorian Luxury'],
+    related: ['eureka'] 
+  },
+  { 
+    id: 'ufo-watchtower', 
+    title: 'UFO Watchtower', 
+    state: 'CO', 
+    region: 'Hooper, CO', 
+    category: 'alien', 
+    color: '#004d40', 
+    desc: 'A roadside observation deck in a high-altitude desert.',
+    history: 'Located in the UFO-heavy San Luis Valley, the tower was built by Judy Messoline to provide a place for enthusiasts to scan the skies. Since its opening, dozens of craft have been documented from this single platform.',
+    facts: [
+      'Features a "Rock Garden" where people leave offerings for aliens',
+      'Two "Psychic Vortices" are said to be located on the property',
+      'Located in a "Class 1" dark sky area for perfect visibility',
+      'The owner has documented over 200 personal UFO sightings'
+    ],
+    features: ['Sky Watching', 'Psychic Energy', 'Extraterrestrial Offerings'],
+    related: ['san-luis'] 
+  }
+];
 
     let currentCat = 'all';
     let currentState = 'all';
