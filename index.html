@@ -262,7 +262,7 @@
     function openModal(id) {
       const item = trips.find(t => t.id === id);
       document.getElementById('modal-title').textContent = item.title;
-      document.getElementById('modal-map-link').href = `http://google.com/maps/search/${encodeURIComponent(item.title + ' ' + item.region)}`;
+      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
       
       let relatedHtml = '';
       if (item.related) {
