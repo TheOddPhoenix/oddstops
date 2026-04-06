@@ -3,107 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oddities | Shell Test</title>
+  <title>Oddities | Exploration Shell</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    html, body { height: 100%; margin: 0; background: #12121a; color: #f5f0e8; }
+    html, body { height: 100%; margin: 0; background: #12121a; color: #f5f0e8; scroll-behavior: smooth; }
     .app-wrapper { font-family: 'Outfit', sans-serif; }
-    .oddity-line { width: 24px; height: 2px; background: linear-gradient(to right, #8a2be2 0%, transparent 100%); }
-    .attraction-card { transition: all 0.3s ease; border: 1px solid rgba(138,43,226,0.1); }
-    .attraction-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); border-color: rgba(138,43,226,0.4); }
+    .oddity-line { width: 32px; height: 2px; background: linear-gradient(to right, #8a2be2 0%, transparent 100%); }
+    .attraction-card { transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); border: 1px solid rgba(138,43,226,0.08); background: #1e1e28; }
+    .attraction-card:hover { transform: translateY(-8px); border-color: rgba(138,43,226,0.4); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
     .skull-spin { animation: skullBounce 3s ease-in-out infinite; }
     @keyframes skullBounce { 0%, 100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
     .scroll-container::-webkit-scrollbar { display: none; }
+    .fade-in { animation: fadeIn 0.5s ease forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body class="h-full">
   <div id="app" class="app-wrapper h-full w-full overflow-auto">
-    <nav class="sticky top-0 z-50 backdrop-blur-lg border-b border-purple-900/20 bg-[#12121a]/90">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <nav class="sticky top-0 z-50 backdrop-blur-xl border-b border-purple-900/20 bg-[#12121a]/90">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="skull-spin"><i data-lucide="skull" class="text-purple-600"></i></div>
-          <span class="text-xl font-bold tracking-tighter">ODDITIES</span>
+          <div class="skull-spin"><i data-lucide="skull" class="text-purple-600 w-7 h-7"></i></div>
+          <span class="text-2xl font-bold tracking-tighter">ODDITIES</span>
         </div>
-        <div class="flex items-center gap-4 text-sm font-medium">
-          <span class="text-zinc-500 hidden sm:inline">Shell v1.0</span>
-          <div class="bg-purple-600 text-black px-3 py-1 rounded-full flex items-center gap-2">
-            <i data-lucide="bookmark" class="w-3 h-3"></i> <span id="saved-count">0</span>
-          </div>
+        <div class="flex items-center gap-6">
+          <button id="nav-saved-btn" class="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold bg-[#8a2be2] text-[#12121a] transition hover:scale-105">
+            <i data-lucide="bookmark" class="w-4 h-4 fill-current"></i> 
+            <span>BUCKET LIST</span>
+            <span id="saved-count" class="ml-2 bg-[#12121a] text-[#8a2be2] px-2 py-0.5 rounded-full text-xs">0</span>
+          </button>
         </div>
       </div>
     </nav>
 
-    <header class="py-20 px-4 text-center bg-gradient-to-b from-[#1a0a2a] to-[#12121a]">
-      <h1 class="text-5xl font-black mb-4 tracking-tight">Explore the <span class="text-purple-500">Unexplained.</span></h1>
-      <p class="text-zinc-400 max-w-xl mx-auto mb-10">Functional shell test. Use filters and search to navigate the mystery.</p>
-      <div class="flex justify-center gap-4">
-        <div class="relative w-full max-w-md">
-          <i data-lucide="search" class="absolute left-4 top-3 w-4 h-4 text-zinc-500"></i>
-          <input id="search-input" type="text" placeholder="Search by name or lore..." class="w-full bg-white/5 border border-white/10 rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-purple-500">
+    <header class="relative py-24 px-6 text-center overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#1a0a2a] via-[#12121a] to-[#12121a] opacity-80"></div>
+      <div class="relative z-10 max-w-3xl mx-auto">
+        <h1 class="text-6xl font-black mb-6 tracking-tight leading-none">THE WORLD IS <span class="text-purple-500">STRANGE.</span></h1>
+        <p class="text-xl text-zinc-400 mb-10 font-light">Haunted asylums, cryptid hotspots, and mysteries that defy explanation. Explore the lore of the forgotten.</p>
+        <div class="relative max-w-lg mx-auto">
+          <i data-lucide="search" class="absolute left-5 top-4 w-5 h-5 text-zinc-500"></i>
+          <input id="search-input" type="text" placeholder="Search by location, tag, or legend..." class="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-14 pr-6 focus:outline-none focus:border-purple-500 transition-all text-lg">
         </div>
       </div>
     </header>
 
-    <section class="max-w-6xl mx-auto px-4 mb-12">
-      <div class="flex items-center gap-2 mb-6">
+    <section class="max-w-6xl mx-auto px-6 mb-16">
+      <div class="flex items-center gap-3 mb-8">
         <div class="oddity-line"></div>
-        <h2 class="font-bold text-zinc-400 uppercase text-xs tracking-widest">Weekly Anomaly</h2>
+        <h2 class="font-bold text-zinc-500 uppercase text-xs tracking-[0.2em]">Weekly Manifestation</h2>
       </div>
-      <div id="featured-card" class="bg-[#1e1e28] rounded-2xl p-8 border border-purple-900/30 cursor-pointer hover:bg-[#252533] transition-all">
+      <div id="featured-card" class="bg-[#1e1e28] rounded-3xl p-10 border border-purple-900/30 cursor-pointer hover:bg-[#252533] transition-all relative overflow-hidden group">
         </div>
     </section>
 
-    <div class="max-w-6xl mx-auto px-4 mb-8 overflow-x-auto scroll-container flex gap-3">
-      <button class="filter-btn active bg-purple-600 text-white px-4 py-1.5 rounded-full text-sm font-bold" data-filter="all">All</button>
-      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="haunted">Haunted</button>
-      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="historic">Historic</button>
-      <button class="filter-btn bg-white/5 text-zinc-400 px-4 py-1.5 rounded-full text-sm font-bold" data-filter="cryptid">Cryptid</button>
-    </div>
-
-    <section id="grid-section" class="max-w-6xl mx-auto px-4 pb-20">
-      <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section id="grid-section" class="max-w-6xl mx-auto px-6 pb-32">
+      <div class="flex items-center justify-between mb-10">
+        <h2 class="text-3xl font-bold">Discover</h2>
+        <div class="flex gap-2 overflow-x-auto scroll-container pb-2">
+          <button class="filter-btn active bg-purple-600 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest" data-filter="all">All</button>
+          <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest" data-filter="haunted">Haunted</button>
+          <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest" data-filter="historic">Historic</button>
+          <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest" data-filter="cryptid">Cryptid</button>
+        </div>
+      </div>
+      <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         </div>
     </section>
 
-    <div id="detail-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90">
-      <div class="w-full max-w-2xl bg-[#1e1e28] rounded-3xl overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto">
-        <div class="p-6 border-b border-white/5 flex justify-between items-center bg-[#252533]">
-          <h2 id="modal-title" class="text-xl font-bold">Location Details</h2>
-          <button id="modal-close" class="p-2 bg-white/10 rounded-full hover:bg-red-500/20 transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <div id="detail-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+      <div class="w-full max-w-3xl bg-[#1e1e28] rounded-[2rem] overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto shadow-2xl">
+        <div class="p-8 border-b border-white/5 flex justify-between items-center bg-[#1e1e28] sticky top-0 z-10">
+          <div>
+            <span id="modal-cat" class="text-purple-500 text-[10px] font-black uppercase tracking-widest mb-1 block">CATEGORY</span>
+            <h2 id="modal-title" class="text-3xl font-black">Location</h2>
+          </div>
+          <button id="modal-close" class="p-3 bg-white/5 rounded-full hover:bg-red-500/20 transition-all text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
         </div>
-        <div id="modal-content" class="p-8"></div>
+        <div id="modal-content" class="p-10"></div>
       </div>
     </div>
   </div>
 
   <script>
+    // FULL DATA RESTORED
     const trips = [
-      { id: 'eureka', title: 'Eureka Springs, Arkansas', category: 'historic', desc: 'Built into the Ozark Mountains during the 1880s silver boom. Known for Victorian architecture and disembodied voices.', history: 'Emerged as a resort town. Mining accidents left emotional scars, leading to reports of Victorian apparitions.', color: '#2a0a20' },
-      { id: 'waverly', title: 'Waverly Hills Sanatorium', category: 'haunted', desc: 'Infamous tuberculosis hospital. Home to the "Body Chute" and countless trapped spirits.', history: 'Opened in 1910. Over 60,000 deaths. Room 502 is noted for extreme poltergeist activity.', color: '#2a0a40' },
-      { id: 'stanley', title: 'The Stanley Hotel', category: 'haunted', desc: 'The Colorado landmark that inspired Stephen King to write "The Shining".', history: 'Opened in 1909. King stayed in Room 217 (now 401) during an off-season night, conceiving his plot.', color: '#1a2a0a' },
-      { id: 'san-luis', title: 'San Luis Valley', category: 'cryptid', desc: 'A remote high-altitude valley famous for UFO sightings and the "Gunnison Creature".', history: 'A center of activity since pre-Columbian times. Sits on major ley line junctions.', color: '#0a2a1a' },
-      { id: 'salem', title: 'Salem Gallows Hill', category: 'historic', desc: 'Site of the 1692 Witch Trial executions. A place of deep historical trauma.', history: 'Nineteen were hanged here. The hysteria lasted 14 months but changed American law forever.', color: '#2a0a30' },
-      { id: 'winchester', title: 'Winchester Mystery House', category: 'cryptid', desc: 'A mansion with stairways to nowhere, built to confuse the spirits of rifle victims.', history: 'Sarah Winchester built continuously for 38 years to appease those killed by her husband\'s rifles.', color: '#2a1a0a' },
-      { id: 'trans-allegheny', title: 'Trans-Allegheny Asylum', category: 'haunted', desc: 'Overcrowded lunatic asylum where barbaric treatments were standard practice.', history: 'Designed for 250, it held 1,900. Screams are still reported echoing from empty wards.', color: '#0a1a2a' },
-      { id: 'bobby-mackey', title: 'Bobby Mackey\'s Music World', category: 'haunted', desc: 'A honky-tonk bar built on a former slaughterhouse with a very dark, violent past.', history: 'Site of a gruesome 1896 murder. Bottle-throwing and physical pushes are frequently reported.', color: '#2a0a0a' },
-      { id: 'myrtles', title: 'Myrtles Plantation', category: 'haunted', desc: 'One of America\'s most haunted homes, allegedly housing exactly ten distinct ghosts.', history: 'Built in 1796. Legend says a slave named Chloe poisoned the family in a tragic cycle of revenge.', color: '#1a2a1a' },
-      { id: 'villisca', title: 'Villisca Axe Murder House', category: 'historic', desc: 'Site of an unsolved 1912 mass murder where an entire family was killed in their sleep.', history: 'Eight victims total. The killer covered all mirrors and windows, a detail that still baffles police.', color: '#1a0a0a' }
+      { id: 'eureka', title: 'Eureka Springs, Arkansas', region: 'Carroll County, AR', category: 'historic', tags: ['Historic Town', 'Paranormal Hub'], color: '#2a0a20', desc: 'Built into the Ozark Mountains during the 1880s silver boom. Locals and visitors report that the town itself harbors paranormal activity—ghostly figures in Victorian dress wandering the steep streets and disembodied voices in historic buildings.', history: 'Eureka Springs emerged during the 1880s silver boom. The rapid growth and subsequent economic bust left emotional scars. By the early 1900s, the town pivoted to tourism, preserving the architecture but failing to erase the trauma of the past.' },
+      { id: 'san-luis', title: 'San Luis Valley, Colorado', region: 'South-Central CO', category: 'cryptid', tags: ['UFO Hotspot', 'Ley Lines'], color: '#0a2a1a', desc: 'One of North America\'s most active UFO hotspots. Located between the San Juan and Sangre de Cristo Mountains, this remote valley is the epicenter of unexplained phenomena.', history: 'Indigenous peoples reported "sky beings" here for centuries. Modern sightings increased in the 1950s. Some theorists suggest the valley sits on a major geomagnetic anomaly.' },
+      { id: 'waverly', title: 'Waverly Hills Sanatorium', region: 'Louisville, KY', category: 'haunted', tags: ['Medical History', 'Body Chute'], color: '#2a0a40', desc: 'Built in 1910, this tuberculosis hospital is one of America\'s most haunted places. The "body chute" was used to discreetly remove thousands of corpses.', history: 'Over 60,000 patients died here. After antibiotics rendered it obsolete, it fell into abandonment before becoming a destination for paranormal research.' },
+      { id: 'salem', title: 'Salem Gallows Hill', region: 'Salem, MA', category: 'historic', tags: ['Witch Trials', 'Executions'], color: '#2a0a30', desc: 'The site where nineteen innocent people were hanged during the hysteria of 1692. A memorial to mass paranoia.', history: 'What began as convulsive fits in young girls spiraled into mass paranoia. It remains a cautionary tale about false accusations and religious extremism.' },
+      { id: 'stanley', title: 'The Stanley Hotel', region: 'Estes Park, CO', category: 'haunted', tags: ['The Shining', 'Gold Room'], color: '#1a2a0a', desc: 'Inspired Stephen King\'s "The Shining". Guests report phantom piano music and apparitions of staff members.', history: 'Built in 1909. King stayed in Room 217 in 1974 when the hotel was nearly empty, sparking the idea for his horror masterpiece.' },
+      { id: 'winchester', title: 'Winchester Mystery House', region: 'San Jose, CA', category: 'cryptid', tags: ['Architectural Puzzle'], color: '#2a1a0a', desc: 'A sprawling mansion with staircases to nowhere and doors opening into solid walls.', history: 'Sarah Winchester believed she was directed by spirits to build continuously for 38 years to appease those killed by Winchester rifles.' },
+      { id: 'trans-allegheny', title: 'Trans-Allegheny Asylum', region: 'Weston, WV', category: 'haunted', tags: ['Asylum', 'Medical Horror'], color: '#0a1a2a', desc: 'A dumping ground for society\'s unwanted. Held 1,900 people in a building designed for 250.', history: 'Endured barbaric treatments like ice water baths and frontal lobotomies. Thousands died from neglect and violence.' },
+      { id: 'bobby-mackey', title: 'Bobby Mackey\'s Music World', region: 'Wilder, KY', category: 'haunted', tags: ['Honky Tonk', 'Cursed'], color: '#2a0a0a', desc: 'A honky-tonk bar built on an old slaughterhouse. Known for malevolent poltergeist activity.', history: 'Site of a brutal 1896 murder. Some believe the venue sits atop an old satanic temple meeting place.' },
+      { id: 'myrtles', title: 'Myrtles Plantation', region: 'St. Francisville, LA', category: 'haunted', tags: ['Ten Ghosts', 'Antebellum'], color: '#1a2a1a', desc: 'Allegedly haunted by ten ghosts, including a slave named Chloe who wears a green turban.', history: 'Built in 1796 on cursed ground. Tragedies including murder and mysterious illnesses have plagued the owners for centuries.' },
+      { id: 'villisca', title: 'Villisca Axe Murder House', region: 'Villisca, IA', category: 'historic', tags: ['Unsolved', 'Dark History'], color: '#1a0a0a', desc: 'In 1912, eight people were murdered in their beds with an axe. The killer was never found.', history: 'The killer methodically covered all mirrors and windows with cloth before fleeing. The trauma is said to have permanently marked the space.' },
+      { id: 'rolling-hills', title: 'Rolling Hills Asylum', region: 'East Bethany, NY', category: 'haunted', tags: ['Poorhouse', 'Shadow People'], color: '#2a0a40', desc: 'Over 1,700 deaths occurred in this former poorhouse, most in unmarked graves.', history: 'Evolved into a dumping ground for the mentally ill. Visitors report shadow figures moving through hallways.' },
+      { id: 'ohio-reformatory', title: 'Ohio State Reformatory', region: 'Mansfield, OH', category: 'historic', tags: ['Shawshank', 'Gothic'], color: '#1a2a0a', desc: 'A massive Victorian Gothic prison that housed the most violent offenders in Ohio.', history: 'Famous as the filming location for "The Shawshank Redemption," though its real history involves executions and suicides.' },
+      { id: 'bell-witch', title: 'Bell Witch Cave', region: 'Adams, TN', category: 'cryptid', tags: ['Witch Cave', 'Portal'], color: '#2a0a30', desc: 'Lair of the Bell Witch, responsible for one of America\'s most famous hauntings.', history: 'From 1817 to 1821, an entity terrorized the Bell family, allegedly causing the death of patriarch John Bell.' },
+      { id: 'driskill', title: 'The Driskill Hotel', region: 'Austin, TX', category: 'haunted', tags: ['Phantom Bride'], color: '#2a1a0a', desc: 'Luxury hotel where a bride is said to have fallen down the grand staircase to her death.', history: 'Opened in 1886. Guests see wet footprints appearing on the stairs and see reflections of people not in the room.' },
+      { id: 'jerome-grand', title: 'Jerome Grand Hotel', region: 'Jerome, AZ', category: 'haunted', tags: ['Ghost Town', 'Joe the Ghost'], color: '#1a2a0a', desc: 'A time capsule of the Roaring Twenties in a rapidly declining mining town.', history: 'Built in 1927. The ghost of a former maintenance man named Joe is said to rearrange furniture and move objects.' },
+      { id: 'sallie-house', title: 'The Sallie House', region: 'Atchison, KS', category: 'haunted', tags: ['Poltergeist', 'Aggressive'], color: '#2a0a0a', desc: 'One of America\'s most violently haunted homes, known for scratching and biting occupants.', history: 'The entity is said to be a girl named Sallie who died during a failed surgery in the house.' },
+      { id: 'fort-delaware', title: 'Fort Delaware', region: 'Delaware City, DE', category: 'historic', tags: ['Civil War', 'Military Prison'], color: '#1a2a0a', desc: 'The "Andersonville of the North" during the Civil War. Thousands died from malnutrition.', history: 'Built in 1848. Held over 12,000 Confederate prisoners in deplorable, disease-ridden conditions.' },
+      { id: 'omni-grove', title: 'Omni Grove Park Inn', region: 'Asheville, NC', category: 'haunted', tags: ['Pink Lady', 'Resort'], color: '#2a1a0a', desc: 'A luxury granite resort haunted by the "Pink Lady" in Room 545.', history: 'Opened in 1913. The Pink Lady allegedly fell from a balcony in the 1920s and has wandered the halls ever since.' },
+      { id: 'pfister', title: 'The Pfister Hotel', region: 'Milwaukee, WI', category: 'haunted', tags: ['Victorian', 'Celebrity Haunt'], color: '#2a0a20', desc: 'One of the oldest continuously operating hotels, famous for haunting MLB players.', history: 'Built in 1893. Many pro athletes refuse to stay here due to reports of moving furniture and voices.' },
+      { id: 'skirvin', title: 'The Skirvin Hilton', region: 'Oklahoma City, OK', category: 'haunted', tags: ['Maid Spirit', 'Baby Cries'], color: '#2a0a0a', desc: 'Legend says a maid was locked in an attic room where she died with her child.', history: 'Guests hear disembodied baby cries on the upper floors. The maid spirit is seen frantically searching for her child.' },
+      { id: 'marshall-house', title: 'The Marshall House', region: 'Savannah, GA', category: 'historic', tags: ['Civil War Hospital'], color: '#1a2a0a', desc: 'Served as a hospital during the Civil War. Amputated limbs were found under floorboards during renovation.', history: 'Built in 1790. Visitors report the smell of gunpowder and the sight of soldiers in uniform.' },
+      { id: 'red-onion', title: 'Red Onion Saloon', region: 'Skagway, AK', category: 'haunted', tags: ['Gold Rush', 'Brothel'], color: '#2a0a0a', desc: 'A Gold Rush saloon and brothel haunted by a spirit named Rosie.', history: 'Built in 1897. Rosie worked in the brothel and died mysteriously. The smell of her perfume often fills the air.' },
+      { id: 'sloss', title: 'Sloss Furnaces', region: 'Birmingham, AL', category: 'historic', tags: ['Industrial', 'Malevolent'], color: '#1a2a0a', desc: 'An iron production plant where hundreds of workers died in molten metal accidents.', history: 'Operated from 1882 to 1971. Workers fell into 2,000-degree vats. Now a hub for aggressive paranormal sightings.' },
+      { id: 'lemp', title: 'The Lemp Mansion', region: 'St. Louis, MO', category: 'haunted', tags: ['Brewing Dynasty', 'Suicide'], color: '#2a0a20', desc: 'A brewing family dynasty plagued by four suicides within this home.', history: 'The Lemp family fortune was destroyed by Prohibition. Their grief is said to have permanently stained the mansion.' },
+      { id: 'shanghai', title: 'Shanghai Tunnels', region: 'Portland, OR', category: 'historic', tags: ['Trafficking', 'Underground'], color: '#1a1a0a', desc: 'Basements and tunnels used to kidnap men and force them into maritime servitude.', history: 'From 1870 to 1920, men were drugged and "shanghaied" through these tunnels to waiting ships.' },
+      { id: 'palmer', title: 'Palmer House Hotel', region: 'Sauk Centre, MN', category: 'haunted', tags: ['Sinclair Lewis'], color: '#2a1a0a', desc: 'A Victorian hotel where ghosts appear in the hallways and elevators move on their own.', history: 'Opened in 1901. Multiple deaths are documented. A woman in a pink dress is the most common apparition.' }
     ];
 
+    let likedTrips = new Set();
+    let currentFilter = 'all';
+
+    // RENDER FUNCTIONS
     function renderFeatured() {
       const now = new Date();
       const start = new Date(now.getFullYear(), 0, 1);
       const weekNum = Math.floor((now - start) / 86400000 / 7);
       const featured = trips[weekNum % trips.length];
       const card = document.getElementById('featured-card');
+      
       card.innerHTML = `
-        <span class="text-purple-500 font-bold text-xs uppercase tracking-widest">${featured.category}</span>
-        <h3 class="text-3xl font-bold mt-2 mb-4">${featured.title}</h3>
-        <p class="text-zinc-400 leading-relaxed max-w-2xl">${featured.desc}</p>
-        <div class="mt-6 flex items-center gap-2 text-purple-400 text-sm font-bold">
-          View Full Lore <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+          <i data-lucide="sparkles" class="w-32 h-32"></i>
+        </div>
+        <span class="text-purple-500 font-black text-[10px] uppercase tracking-[0.3em] mb-4 block">${featured.region}</span>
+        <h3 class="text-4xl font-black mt-2 mb-6 leading-none">${featured.title}</h3>
+        <p class="text-zinc-400 text-lg leading-relaxed max-w-2xl mb-8">${featured.desc}</p>
+        <div class="flex items-center gap-2 text-purple-400 text-sm font-bold">
+          UNCOVER THE LORE <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </div>
       `;
       card.onclick = () => openModal(featured);
@@ -113,14 +147,18 @@
     function renderGrid(data = trips) {
       const grid = document.getElementById('trip-grid');
       grid.innerHTML = '';
-      data.forEach(item => {
+      data.forEach((item, index) => {
         const div = document.createElement('div');
-        div.className = 'attraction-card bg-[#1e1e28] rounded-2xl p-6 cursor-pointer';
+        div.className = 'attraction-card rounded-[1.5rem] p-8 cursor-pointer fade-in';
+        div.style.animationDelay = `${(index % 6) * 0.1}s`;
         div.innerHTML = `
-          <div class="h-2 w-12 rounded-full mb-4" style="background:${item.color}"></div>
-          <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">${item.category}</span>
-          <h3 class="text-lg font-bold mt-1 text-white">${item.title}</h3>
-          <p class="text-zinc-500 text-xs mt-3 line-clamp-2">${item.desc}</p>
+          <div class="h-1 w-10 rounded-full mb-6" style="background:${item.color}"></div>
+          <span class="text-[9px] text-zinc-500 uppercase font-black tracking-widest">${item.category}</span>
+          <h3 class="text-xl font-bold mt-1 mb-3">${item.title}</h3>
+          <p class="text-zinc-500 text-sm line-clamp-2 leading-relaxed">${item.desc}</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            ${item.tags.map(tag => `<span class="text-[9px] border border-white/10 px-2 py-1 rounded-full text-zinc-400 uppercase font-bold">${tag}</span>`).join('')}
+          </div>
         `;
         div.onclick = () => openModal(item);
         grid.appendChild(div);
@@ -128,19 +166,30 @@
     }
 
     function openModal(item) {
+      document.getElementById('modal-cat').textContent = item.category;
       document.getElementById('modal-title').textContent = item.title;
       document.getElementById('modal-content').innerHTML = `
-        <div class="w-full h-4 rounded-xl mb-6" style="background:${item.color}"></div>
-        <p class="text-zinc-300 text-lg mb-8 leading-relaxed">${item.desc}</p>
-        <div class="bg-black/20 p-6 rounded-2xl border border-white/5">
-          <h4 class="text-purple-500 font-bold text-sm uppercase mb-3 tracking-widest">History & Lore</h4>
-          <p class="text-zinc-400 leading-relaxed text-sm">${item.history}</p>
+        <div class="w-full h-2 rounded-full mb-10" style="background:${item.color}"></div>
+        <div class="space-y-10">
+          <div>
+            <h4 class="text-white font-bold mb-3">Lore</h4>
+            <p class="text-zinc-400 text-lg leading-relaxed">${item.desc}</p>
+          </div>
+          <div class="bg-black/30 p-8 rounded-3xl border border-white/5">
+            <h4 class="text-purple-500 font-bold text-xs uppercase mb-4 tracking-widest">Historical Evidence</h4>
+            <p class="text-zinc-400 leading-relaxed text-base">${item.history}</p>
+          </div>
+          <div class="flex gap-4">
+            <button class="flex-1 bg-purple-600 text-black py-4 rounded-full font-bold text-sm tracking-widest uppercase" onclick="alert('Saving to your local browser...')">Save to Bucket List</button>
+            <button class="flex-1 bg-white/5 text-white py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white/10" onclick="window.open('https://www.google.com/maps/search/'+encodeURIComponent('${item.title}'))">Map Location</button>
+          </div>
         </div>
       `;
       document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
     }
 
-    // Controls
+    // INITIALIZATION
     window.onload = () => {
       renderFeatured();
       renderGrid();
@@ -150,19 +199,15 @@
       
       document.getElementById('search-input').oninput = (e) => {
         const val = e.target.value.toLowerCase();
-        const filtered = trips.filter(t => t.title.toLowerCase().includes(val) || t.desc.toLowerCase().includes(val));
+        const filtered = trips.filter(t => t.title.toLowerCase().includes(val) || t.desc.toLowerCase().includes(val) || t.category.toLowerCase().includes(val));
         renderGrid(filtered);
       };
 
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = () => {
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-purple-600', 'text-white'));
-          btn.classList.add('bg-purple-600', 'text-white');
-          const f = btn.dataset.filter;
-          renderGrid(f === 'all' ? trips : trips.filter(t => t.category === f));
-        }
-      });
-    };
-  </script>
-</body>
-</html>
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-purple-600', 'text-white');
+            b.classList.add('bg-white/5', 'text-zinc-500');
+          });
+          btn.classList.remove('bg-white/5', 'text-zinc-500');
+          btn.classList.add('bg-purple-600', 'text-white
