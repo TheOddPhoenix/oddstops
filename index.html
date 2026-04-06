@@ -310,7 +310,7 @@ function renderFeatured() {
 
 function openModal(item) {
       document.getElementById('modal-title').textContent = item.title;
-      document.getElementById('modal-map-link').href = `http://googleusercontent.com/maps.google.com/search?q=${encodeURIComponent(item.title)}`;
+      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title)}`;
       
       document.getElementById('modal-content').innerHTML = `
         <div class="w-full h-64 rounded-3xl mb-6 flex items-center justify-center shadow-inner" style="background: linear-gradient(135deg, ${item.color}, #1e1e28)">
