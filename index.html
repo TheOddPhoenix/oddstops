@@ -7,6 +7,7 @@
   
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  
   <script src="data.js"></script>
   
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -128,30 +129,6 @@
             <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="alien">
               <i data-lucide="rocket" class="w-3.5 h-3.5"></i> Aliens/UFO
             </button>
-
-            <div class="relative inline-block">
-              <select id="state-filter" class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 pr-10 rounded-full text-[10px] font-bold uppercase tracking-widest appearance-none cursor-pointer border-none outline-none hover:text-white transition w-full">
-                <option value="all">By State</option>
-                <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">Dist. Columbia</option>
-                <option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option>
-                <option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option>
-                <option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option>
-                <option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option>
-                <option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option>
-                <option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
-              </select>
-              <i data-lucide="chevron-down" class="absolute right-4 top-3 w-3 h-3 text-zinc-500 pointer-events-none"></i>
-            </div>
           </div>
           
           <div class="h-px w-full bg-white/5"></div>
@@ -171,6 +148,7 @@
         </button>
       </div>
     </section>
+
     <footer class="pb-20 px-6 border-t border-white/5 pt-12">
       <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
         <div class="text-left">
@@ -227,7 +205,6 @@
     let visibleCount = 12;
     let currentFilteredTrips = [];
     let currentCat = 'all';
-    let currentState = 'all';
 
     function showToast(msg) {
       const toast = document.getElementById("toast");
@@ -342,6 +319,9 @@
       if(!document.getElementById('collections-display-section').classList.contains('hidden')) {
           viewCollection(document.getElementById('active-list-title').textContent);
       }
+      
+      // Update quick save icons on grid if visible
+      renderGrid(currentFilteredTrips.length > 0 ? currentFilteredTrips : null);
     }
 
     function createNewList() {
@@ -356,6 +336,8 @@
       closeSaveMenu();
       updateBookmarkIcon(activeLocationId);
       updateAccountDropdown();
+      
+      renderGrid(currentFilteredTrips.length > 0 ? currentFilteredTrips : null);
     }
 
     function updateBookmarkIcon(id) {
@@ -479,15 +461,15 @@
       lucide.createIcons();
     }
 
-   function renderGrid(data = null) {
+    function renderGrid(data = null) {
       if (typeof trips === 'undefined') return;
       const sourceData = data || trips;
       const grid = document.getElementById('trip-grid');
       const loadMoreContainer = document.getElementById('load-more-container');
       
+      // Removed the state filter check here
       currentFilteredTrips = sourceData.filter(t => 
-        (currentCat === 'all' || t.category === currentCat) && 
-        (currentState === 'all' || t.state === currentState)
+        (currentCat === 'all' || t.category === currentCat)
       );
 
       grid.innerHTML = '';
@@ -503,13 +485,12 @@
         card.innerHTML = `
           <div class="h-48 rounded-2xl mb-6 flex items-center justify-center overflow-hidden bg-zinc-900 relative">
             <button onclick="event.stopPropagation(); openSaveMenu('${item.id}')" class="absolute top-4 right-4 z-10 p-3 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 text-white hover:bg-purple-600 hover:text-white transition-all">
-              <i data-lucide="bookmark" class="w-4 h-4 ${isSaved ? 'fill-white' : ''}"></i>
+              <i data-lucide="bookmark" class="w-4 h-4 ${isSaved ? 'fill-white text-white' : ''}"></i>
             </button>
-            
             <img src="${imagePath}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                  onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
             <div class="hidden w-full h-full items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
-              <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming Soon</span>
+              <span class="text-[10px] font-bold text-white/30 uppercase tracking-widest">Photo Coming</span>
             </div>
           </div>
           <div class="text-left" onclick="openModal('${item.id}')">
@@ -546,6 +527,8 @@
       if (typeof trips !== 'undefined') {
         renderFeatured();
         renderGrid();
+      } else {
+        console.warn("data.js could not be loaded or 'trips' is undefined.");
       }
       updateAccountDropdown();
       
@@ -554,45 +537,24 @@
           closeSaveMenu(); 
       };
       
-      // CATEGORY BUTTONS
-      document.querySelectorAll('.filter-btn').forEach(btn => {
+      document.querySelectorAll('button.filter-btn').forEach(btn => {
         btn.onclick = () => {
-          // 1. Reset State Selector to default
-          document.getElementById('state-filter').value = 'all';
-          currentState = 'all';
-
-          // 2. Update Button Styling
-          document.querySelectorAll('.filter-btn').forEach(b => {
+          document.querySelectorAll('button.filter-btn').forEach(b => {
             b.classList.remove('active', 'bg-purple-600', 'text-white');
             b.classList.add('bg-white/5', 'text-zinc-500');
           });
           btn.classList.add('active', 'bg-purple-600', 'text-white');
           btn.classList.remove('bg-white/5', 'text-zinc-500');
           
-          // 3. Set category and render
           currentCat = btn.dataset.filter;
+          
+          // Clear the search input when switching categories
+          document.getElementById('search-input').value = '';
+          
           resetPagination();
           renderGrid();
         };
       });
-
-      // STATE SELECTOR
-      document.getElementById('state-filter').onchange = (e) => {
-        // 1. Reset Category Buttons to "All"
-        currentCat = 'all';
-        document.querySelectorAll('.filter-btn').forEach(b => {
-          b.classList.remove('active', 'bg-purple-600', 'text-white');
-          b.classList.add('bg-white/5', 'text-zinc-500');
-          if(b.dataset.filter === 'all') {
-             b.classList.add('active', 'bg-purple-600', 'text-white');
-          }
-        });
-
-        // 2. Set state and render
-        currentState = e.target.value;
-        resetPagination();
-        renderGrid();
-      };
 
       document.getElementById('search-input').oninput = (e) => {
         if (typeof trips === 'undefined') return;
