@@ -34,7 +34,8 @@
 <body class="h-full">
   <div id="toast">Coming Soon</div>
 
-  <div id="app" class="app-wrapper h-full w-full overflow-auto">
+  <div id="app" class="app-wrapper h-full w-full overflow-auto relative">
+    
     <nav class="border-b border-purple-900/20 bg-[#12121a] sticky top-0 z-[150]">
       <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div class="flex items-center gap-3 text-left">
@@ -51,102 +52,105 @@
               <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest">My Collections</p>
             </div>
             <div id="dropdown-lists-container"></div>
-            <button onclick="clearAllData()" class="w-full text-left px-4 py-3 text-[10px] text-red-400 font-bold uppercase hover:bg-red-500/10 rounded-xl mt-2 transition">Reset All Data</button>
-          </div>
+            </div>
         </div>
       </div>
     </nav>
 
-    <header class="relative pt-24 pb-12 px-6 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-[#1a0a2a] via-[#12121a] to-[#12121a] opacity-80"></div>
-      <div class="relative z-10 max-w-6xl mx-auto text-left">
-        <h1 class="text-5xl sm:text-7xl font-black mb-6 tracking-tight leading-[0.9] text-[#f5f0e8] uppercase">Explore the Strange,<br>the Mysterious,<br>the Unforgettable</h1>
-        <p class="text-xl text-zinc-400 mb-10 font-normal leading-relaxed max-w-2xl">Uncover forgotten histories, cryptid hotspots, and urban legends that defy explanation. Real records. Real mysteries.</p>
-        <div class="flex flex-wrap gap-4">
-          <button onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})" class="bg-purple-600 text-[#12121a] px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:scale-105 transition">Explore Locations</button>
-        </div>
-      </div>
-    </header>
-
-    <section class="max-w-6xl mx-auto px-6 mt-20 mb-20">
-      <div class="flex items-center gap-3 mb-8 text-left">
-        <i data-lucide="skull" class="text-purple-600 w-10 h-10 skull-spin"></i>
-        <div class="flex flex-col">
-          <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">THIS WEEK</span>
-          <h2 class="text-4xl font-black leading-none text-left tracking-tighter uppercase">Featured Stop</h2>
-        </div>
-      </div>
-      <div id="featured-card" class="bg-[#1e1e28] rounded-[2.5rem] border border-purple-900/30 overflow-hidden cursor-pointer transition-all hover:bg-[#23232e]"></div>
-    </section>
-
-    <section id="collections-display-section" class="max-w-6xl mx-auto px-6 pb-20 mt-20 hidden">
-      <div class="flex items-center justify-between mb-12">
-        <div class="flex items-center gap-3 text-left">
-          <i data-lucide="folder-heart" class="text-purple-600 w-10 h-10"></i>
-          <div class="flex flex-col">
-            <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">COLLECTION</span>
-            <h2 id="active-list-title" class="text-4xl font-black leading-none tracking-tighter uppercase underline decoration-purple-600 underline-offset-8"></h2>
+    <div id="main-explore-view">
+      <header class="relative pt-24 pb-12 px-6 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#1a0a2a] via-[#12121a] to-[#12121a] opacity-80"></div>
+        <div class="relative z-10 max-w-6xl mx-auto text-left">
+          <h1 class="text-5xl sm:text-7xl font-black mb-6 tracking-tight leading-[0.9] text-[#f5f0e8] uppercase">Explore the Strange,<br>the Mysterious,<br>the Unforgettable</h1>
+          <p class="text-xl text-zinc-400 mb-10 font-normal leading-relaxed max-w-2xl">Uncover forgotten histories, cryptid hotspots, and urban legends that defy explanation. Real records. Real mysteries.</p>
+          <div class="flex flex-wrap gap-4">
+            <button onclick="document.getElementById('grid-section').scrollIntoView({behavior: 'smooth'})" class="bg-purple-600 text-[#12121a] px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:scale-105 transition">Explore Locations</button>
           </div>
         </div>
-        <button onclick="closeCollection()" class="text-zinc-500 hover:text-white uppercase text-[10px] font-black tracking-widest transition">Close View</button>
+      </header>
+
+      <section class="max-w-6xl mx-auto px-6 mt-20 mb-20">
+        <div class="flex items-center gap-3 mb-8 text-left">
+          <i data-lucide="skull" class="text-purple-600 w-10 h-10 skull-spin"></i>
+          <div class="flex flex-col">
+            <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">THIS WEEK</span>
+            <h2 class="text-4xl font-black leading-none text-left tracking-tighter uppercase">Featured Stop</h2>
+          </div>
+        </div>
+        <div id="featured-card" class="bg-[#1e1e28] rounded-[2.5rem] border border-purple-900/30 overflow-hidden cursor-pointer transition-all hover:bg-[#23232e]"></div>
+      </section>
+
+      <section id="grid-section" class="max-w-6xl mx-auto px-6 pb-20 mt-20">
+        <div class="flex flex-col gap-8 mb-12">
+          <div class="flex items-center gap-3 text-left">
+            <i data-lucide="compass" class="text-purple-600 w-10 h-10"></i>
+            <div class="flex flex-col">
+              <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">EXPLORE</span>
+              <h2 class="text-4xl font-black leading-none text-left tracking-tighter uppercase">Discover OddStops</h2>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-6 p-6 rounded-[2.5rem] bg-white/5 border border-white/5">
+            <div class="flex flex-wrap gap-2">
+              <button class="filter-btn active bg-purple-600 text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition" data-filter="all">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> All
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="crime">
+                <i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> True Crime
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="haunted">
+                <i data-lucide="ghost" class="w-3.5 h-3.5"></i> Haunted
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="historic">
+                <i data-lucide="landmark" class="w-3.5 h-3.5"></i> Historic
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="cemetery">
+                <i data-lucide="cross" class="w-3.5 h-3.5"></i> Cemeteries
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="cryptid">
+                <i data-lucide="footprints" class="w-3.5 h-3.5"></i> Cryptid
+              </button>
+              <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="alien">
+                <i data-lucide="rocket" class="w-3.5 h-3.5"></i> Aliens/UFO
+              </button>
+            </div>
+            
+            <div class="h-px w-full bg-white/5"></div>
+
+            <div class="relative w-full">
+              <i data-lucide="search" class="absolute left-5 top-4 w-4 h-4 text-zinc-500"></i>
+              <input id="search-input" type="text" placeholder="Search by name, region, or state..." class="w-full bg-[#12121a] border border-white/10 rounded-full py-3.5 pl-12 pr-6 focus:outline-none focus:border-purple-500 text-xs text-white placeholder:text-zinc-600">
+            </div>
+          </div>
+        </div>
+
+        <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left"></div>
+
+        <div id="load-more-container" class="flex justify-center mt-12 pb-20 hidden">
+          <button onclick="loadMore()" class="bg-white/5 border border-white/10 text-white px-12 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all hover:scale-105 active:scale-95">
+            Load More Locations
+          </button>
+        </div>
+      </section>
+    </div> <section id="collections-display-section" class="max-w-6xl mx-auto px-6 pb-20 pt-12 hidden min-h-screen">
+      <div class="flex flex-col gap-8 mb-12">
+        <button onclick="closeCollection()" class="text-zinc-500 hover:text-white uppercase text-[10px] font-bold tracking-widest flex items-center gap-2 transition w-fit bg-white/5 px-4 py-2 rounded-full hover:bg-white/10">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Explore
+        </button>
+        <div class="flex items-center justify-between border-b border-white/5 pb-8">
+          <div class="flex items-center gap-4 text-left">
+            <div class="p-4 bg-purple-600/20 rounded-2xl border border-purple-500/20"><i data-lucide="folder-heart" class="text-purple-500 w-8 h-8"></i></div>
+            <div class="flex flex-col">
+              <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-1">YOUR COLLECTION</span>
+              <h2 id="active-list-title" class="text-4xl sm:text-5xl font-black leading-none tracking-tighter uppercase text-white"></h2>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="collection-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
-    <section id="grid-section" class="max-w-6xl mx-auto px-6 pb-20 mt-20">
-      <div class="flex flex-col gap-8 mb-12">
-        <div class="flex items-center gap-3 text-left">
-          <i data-lucide="compass" class="text-purple-600 w-10 h-10"></i>
-          <div class="flex flex-col">
-            <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">EXPLORE</span>
-            <h2 class="text-4xl font-black leading-none text-left tracking-tighter uppercase">Discover OddStops</h2>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-6 p-6 rounded-[2.5rem] bg-white/5 border border-white/5">
-          <div class="flex flex-wrap gap-2">
-            <button class="filter-btn active bg-purple-600 text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition" data-filter="all">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> All
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="crime">
-              <i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> True Crime
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="haunted">
-              <i data-lucide="ghost" class="w-3.5 h-3.5"></i> Haunted
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="historic">
-              <i data-lucide="landmark" class="w-3.5 h-3.5"></i> Historic
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="cemetery">
-              <i data-lucide="cross" class="w-3.5 h-3.5"></i> Cemeteries
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="cryptid">
-              <i data-lucide="footprints" class="w-3.5 h-3.5"></i> Cryptid
-            </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 transition hover:text-white" data-filter="alien">
-              <i data-lucide="rocket" class="w-3.5 h-3.5"></i> Aliens/UFO
-            </button>
-          </div>
-          
-          <div class="h-px w-full bg-white/5"></div>
-
-          <div class="relative w-full">
-            <i data-lucide="search" class="absolute left-5 top-4 w-4 h-4 text-zinc-500"></i>
-            <input id="search-input" type="text" placeholder="Search by name, region, or state..." class="w-full bg-[#12121a] border border-white/10 rounded-full py-3.5 pl-12 pr-6 focus:outline-none focus:border-purple-500 text-xs text-white placeholder:text-zinc-600">
-          </div>
-        </div>
-      </div>
-
-      <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left"></div>
-
-      <div id="load-more-container" class="flex justify-center mt-12 pb-20 hidden">
-        <button onclick="loadMore()" class="bg-white/5 border border-white/10 text-white px-12 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all hover:scale-105 active:scale-95">
-          Load More Locations
-        </button>
-      </div>
-    </section>
-
-    <footer class="pb-20 px-6 border-t border-white/5 pt-12">
+    <footer class="pb-20 px-6 border-t border-white/5 pt-12 mt-auto">
       <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
         <div class="text-left">
           <div class="flex items-center gap-2 mb-4">
@@ -159,7 +163,6 @@
           </p>
         </div>
         <div class="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
-          <a href="javascript:void(0)" onclick="clearAllData()" class="hover:text-red-500 transition">Clear Local Data</a>
           <a href="javascript:void(0)" onclick="showToast('Cloud Sync Coming Phase 02')" class="hover:text-purple-500 transition">Privacy Policy</a>
         </div>
       </div>
@@ -169,10 +172,12 @@
       <div class="w-full max-w-3xl bg-[#1e1e28] rounded-[2.5rem] overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto shadow-2xl relative text-left">
         
         <div class="p-8 border-b border-white/5 flex justify-between items-center bg-[#1e1e28] sticky top-0 z-10">
-          <h2 id="modal-title" class="text-3xl font-black uppercase tracking-tighter">Location</h2>
-          <button id="modal-close" class="p-3 bg-white/5 rounded-full hover:bg-red-500/20 text-white transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
+          <h2 id="modal-title" class="text-3xl font-black uppercase tracking-tighter pr-4">Location</h2>
+          <button id="modal-close" class="p-3 bg-white/5 rounded-full hover:bg-red-500/20 text-white transition-colors shrink-0"><i data-lucide="x" class="w-6 h-6"></i></button>
         </div>
+        
         <div id="modal-content" class="p-10 space-y-10"></div>
+        
         <div class="sticky bottom-0 bg-[#1e1e28] p-8 border-t border-white/5 flex gap-4 z-10">
           <button id="bookmark-trigger" class="p-4 bg-white/5 rounded-2xl border border-white/5 text-white hover:bg-white/10 transition group">
              <i data-lucide="bookmark" class="w-6 h-6"></i>
@@ -209,6 +214,7 @@
     };
 
     let userCollections = JSON.parse(localStorage.getItem('oddstops_collections')) || { "My Bucket List": [] };
+    let userVisited = JSON.parse(localStorage.getItem('oddstops_visited')) || [];
     let activeLocationId = null;
 
     let visibleCount = 12;
@@ -237,46 +243,75 @@
       });
     }
 
+    function toggleVisited(id, event) {
+      if(event) event.stopPropagation();
+      const idx = userVisited.indexOf(id);
+      
+      if (idx > -1) {
+          userVisited.splice(idx, 1);
+          showToast("Removed from Visited");
+      } else {
+          userVisited.push(id);
+          showToast("Marked as Visited!");
+      }
+      
+      localStorage.setItem('oddstops_visited', JSON.stringify(userVisited));
+      viewCollection(document.getElementById('active-list-title').textContent);
+    }
+
     function viewCollection(listName) {
+      document.getElementById('main-explore-view').classList.add('hidden');
+      
       const section = document.getElementById('collections-display-section');
       const grid = document.getElementById('collection-grid');
-      const title = document.getElementById('active-list-title');
-      
-      title.textContent = listName;
+      document.getElementById('active-list-title').textContent = listName;
       grid.innerHTML = '';
       
       const ids = userCollections[listName];
-      if (ids.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-20 text-center text-zinc-600 uppercase text-xs font-bold tracking-widest">This list is empty. Start exploring!</div>`;
+      if (!ids || ids.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-20 text-center text-zinc-600 uppercase text-xs font-bold tracking-widest">This list is empty. Go save some oddities!</div>`;
       } else {
         ids.forEach(id => {
           if (typeof trips === 'undefined') return;
           const item = trips.find(t => t.id === id);
           if(!item) return;
+          
           const color = getCategoryColor(item.category);
+          const isVisited = userVisited.includes(item.id);
+          
           const card = document.createElement('div');
-          card.className = 'attraction-card rounded-[2.5rem] p-8 cursor-pointer relative group';
+          card.className = `attraction-card rounded-[2.5rem] p-8 cursor-pointer relative group ${isVisited ? 'opacity-60 grayscale hover:grayscale-0 transition-all duration-500' : ''}`;
+          
+          card.onclick = () => openModal(item.id);
           card.innerHTML = `
             <div class="h-40 rounded-2xl mb-6 flex items-center justify-center overflow-hidden bg-zinc-900 relative">
-              <button onclick="event.stopPropagation(); openSaveMenu('${item.id}')" class="absolute top-4 right-4 z-10 p-3 bg-black/40 backdrop-blur-md rounded-xl border border-white/10 text-white hover:bg-purple-600 hover:text-white transition-all">
-                <i data-lucide="bookmark" class="w-4 h-4 text-white"></i>
+              
+              <button onclick="toggleVisited('${item.id}', event)" class="absolute top-4 left-4 z-20 p-3 rounded-xl border border-white/10 transition-all ${isVisited ? 'bg-green-500 text-black border-green-400' : 'bg-black/40 backdrop-blur-md text-white hover:bg-green-500 hover:text-black'}">
+                <i data-lucide="check-circle" class="w-4 h-4"></i>
               </button>
+
+              ${isVisited ? '<div class="absolute inset-0 bg-green-900/30 z-10 flex items-center justify-center backdrop-blur-[2px] pointer-events-none"><span class="text-green-400 font-black tracking-widest uppercase border-[3px] border-green-400 px-6 py-2 rounded-xl transform -rotate-12 text-xl shadow-2xl">Visited</span></div>' : ''}
+              
               <img src="${getImagePath(item.id)}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
               <div class="hidden w-full h-full items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)"><span class="text-[8px] font-bold opacity-30 uppercase tracking-widest">Photo Coming</span></div>
             </div>
-            <h3 class="text-xl font-black text-white uppercase">${item.title}</h3>
+            <h3 class="text-xl font-black text-white uppercase ${isVisited ? 'line-through decoration-green-500/50 decoration-2' : ''}">${item.title}</h3>
             <p class="text-[10px] text-purple-500 font-bold uppercase tracking-widest mt-1">${item.region}</p>
           `;
-          card.onclick = () => openModal(item.id);
           grid.appendChild(card);
         });
       }
 
       section.classList.remove('hidden');
-      section.scrollIntoView({ behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
     }
 
-    function closeCollection() { document.getElementById('collections-display-section').classList.add('hidden'); }
+    function closeCollection() { 
+      document.getElementById('collections-display-section').classList.add('hidden');
+      document.getElementById('main-explore-view').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     function openSaveMenu(id) {
       activeLocationId = id;
@@ -315,7 +350,6 @@
       updateBookmarkIcon(id);
       updateAccountDropdown();
       
-      // Update quick save icons on grid if visible
       renderGrid(currentFilteredTrips.length > 0 ? currentFilteredTrips : null);
     }
 
@@ -344,13 +378,6 @@
       }
     }
 
-    function clearAllData() { 
-        if(confirm("This will delete all your custom lists and saved stops. Continue?")) { 
-            localStorage.clear(); 
-            location.reload(); 
-        } 
-    }
-
     function openModal(id) {
       if (typeof trips === 'undefined') return;
       const item = trips.find(t => t.id === id);
@@ -360,6 +387,40 @@
       document.getElementById('modal-title').textContent = item.title;
       document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
       
+      // Safety & Booking Badges
+      let metaHtml = '';
+      if (item.safety_rating) {
+        let colorClass = item.safety_rating.toLowerCase().includes('high') ? 'red' : 'amber';
+        metaHtml += `<div class="flex items-center gap-2 px-4 py-2 bg-${colorClass}-500/10 border border-${colorClass}-500/20 rounded-xl">
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-${colorClass}-500"></i>
+          <span class="text-[10px] font-bold uppercase text-${colorClass}-500 tracking-widest">Safety: ${item.safety_rating}</span>
+        </div>`;
+      }
+      if (item.booking) {
+        metaHtml += `<a href="${item.booking.url || '#'}" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-purple-600/10 border border-purple-500/20 rounded-xl hover:bg-purple-600/20 transition">
+          <i data-lucide="external-link" class="w-4 h-4 text-purple-400"></i>
+          <span class="text-[10px] font-bold uppercase text-purple-400 tracking-widest">${item.booking.type || 'Visit Site'}</span>
+        </a>`;
+      }
+      if (item.booking && item.booking.phone) {
+        metaHtml += `<a href="tel:${item.booking.phone}" class="flex items-center gap-2 px-4 py-2 bg-zinc-500/10 border border-zinc-500/20 rounded-xl hover:bg-zinc-500/20 transition">
+          <i data-lucide="phone" class="w-4 h-4 text-zinc-400"></i>
+          <span class="text-[10px] font-bold uppercase text-zinc-400 tracking-widest">${item.booking.phone}</span>
+        </a>`;
+      }
+
+      // Disclaimers Warnings Box
+      let disclaimersHtml = '';
+      if (item.disclaimers && item.disclaimers.length > 0) {
+        disclaimersHtml = `
+        <div class="mb-8 p-6 bg-red-500/5 border border-red-500/20 rounded-2xl">
+          <h4 class="text-red-500 font-black text-xs uppercase tracking-widest mb-3 flex items-center gap-2"><i data-lucide="shield-alert" class="w-4 h-4"></i> Warnings & Rules</h4>
+          <ul class="space-y-2">
+            ${item.disclaimers.map(d => `<li class="flex items-start gap-2 text-zinc-300 text-sm"><span class="text-red-500 font-bold mt-0.5">•</span> ${d}</li>`).join('')}
+          </ul>
+        </div>`;
+      }
+
       let relatedHtml = '';
       if (item.related && item.related.length > 0) {
         relatedHtml = `
@@ -390,6 +451,11 @@
             <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
           </div>
         </div>
+        
+        ${metaHtml ? `<div class="flex flex-wrap gap-3">${metaHtml}</div>` : ''}
+
+        ${disclaimersHtml}
+
         <div>
           <div class="flex items-center gap-2 mb-4 text-purple-500">
               <i data-lucide="map-pin" class="w-4 h-4"></i>
@@ -397,21 +463,31 @@
           </div>
           <p class="text-zinc-300 text-lg leading-relaxed border-l-2 border-purple-600/30 pl-6">${item.desc}</p>
         </div>
+        
+        ${item.parking_tip ? `
+        <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+          <h4 class="text-zinc-500 font-bold text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="car" class="w-3.5 h-3.5"></i> Parking & Access</h4>
+          <p class="text-zinc-300 text-sm leading-relaxed">${item.parking_tip}</p>
+        </div>` : ''}
+
         <div>
           <h3 class="text-purple-500 font-bold text-2xl mb-4 uppercase tracking-tighter">History & Lore</h3>
-          <p class="text-zinc-400 leading-relaxed text-md">${item.history || 'Information pending.'}</p>
+          <p class="text-zinc-400 leading-relaxed text-md">${item.history || 'Detailed historical information is pending for this location.'}</p>
         </div>
+
+        ${item.facts && item.facts.length > 0 ? `
         <div>
           <h3 class="text-purple-500 font-bold text-2xl mb-6 uppercase tracking-tighter">Key Facts</h3>
           <ul class="space-y-4">
-            ${item.facts ? item.facts.map(fact => `
+            ${item.facts.map(fact => `
               <li class="flex items-start gap-3 text-zinc-300">
                 <i data-lucide="star" class="w-5 h-5 text-purple-500 mt-1 shrink-0"></i>
                 <span class="text-md font-medium leading-tight">${fact}</span>
               </li>
-            `).join('') : ''}
+            `).join('')}
           </ul>
-        </div>
+        </div>` : ''}
+
         ${relatedHtml}
       `;
       
@@ -456,7 +532,7 @@
       lucide.createIcons();
     }
 
-function renderGrid(data = null) {
+    function renderGrid(data = null) {
       if (typeof trips === 'undefined') return;
       const sourceData = data || trips;
       const grid = document.getElementById('trip-grid');
@@ -476,8 +552,6 @@ function renderGrid(data = null) {
         
         const card = document.createElement('div');
         card.className = 'attraction-card rounded-[2.5rem] p-8 cursor-pointer relative group';
-        
-        // THIS MAKES THE ENTIRE CARD CLICKABLE
         card.onclick = () => openModal(item.id);
         
         card.innerHTML = `
@@ -545,7 +619,6 @@ function renderGrid(data = null) {
           btn.classList.remove('bg-white/5', 'text-zinc-500');
           
           currentCat = btn.dataset.filter;
-          
           document.getElementById('search-input').value = '';
           
           resetPagination();
@@ -559,7 +632,7 @@ function renderGrid(data = null) {
         const filtered = trips.filter(t => 
           t.title.toLowerCase().includes(val) || 
           t.region.toLowerCase().includes(val) ||
-          t.state.toLowerCase() === val
+          (t.state && t.state.toLowerCase() === val)
         );
         resetPagination();
         renderGrid(filtered);
