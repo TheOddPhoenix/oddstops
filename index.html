@@ -179,17 +179,20 @@
 
   <script>
     const trips = [
-      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', color: '#8a2be2', desc: 'A Victorian-era town built on healing springs and deep lore.', related: ['falk'] },
+      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', color: '#8a2be2', desc: 'A Victorian-era town built on healing springs and deep lore.', related: ['falk', 'crescent'] },
       { id: 'waverly', title: 'Waverly Hills Sanatorium', state: 'KY', region: 'Louisville, KY', category: 'haunted', color: '#4b0082', desc: 'A Tudor Gothic monument to a dark era of American medicine.' },
-      { id: 'san-luis', title: 'San Luis Valley', state: 'CO', region: 'South-Central CO', category: 'alien', color: '#006400', desc: 'North America\'s most active UFO and paranormal hotspot.', related: ['eureka'] },
+      { id: 'san-luis', title: 'San Luis Valley', state: 'CO', region: 'South-Central CO', category: 'alien', color: '#006400', desc: 'North America\'s most active UFO and paranormal hotspot.', related: ['ufo-watchtower', 'eureka'] },
       { id: 'villisca', title: 'Axe Murder House', state: 'IA', region: 'Villisca, IA', category: 'cemetery', color: '#310000', desc: 'Site of one of the most brutal unsolved mass murders in American history.' },
       { id: 'mothman', title: 'Mothman Site', state: 'WV', region: 'Point Pleasant, WV', category: 'cryptid', color: '#1a1a1a', desc: 'The epicenter of a 13-month reign of terror by a winged creature.' },
       { id: 'mutter', title: 'Mütter Museum', state: 'PH', region: 'Philadelphia, PA', category: 'historic', color: '#5c4033', desc: 'A world-renowned collection of anatomical specimens and medical oddities.' },
       { id: 'bachelors', title: 'Bachelor\'s Grove', state: 'IL', region: 'Midlothian, IL', category: 'cemetery', color: '#2d3b2d', desc: 'Widely considered the most haunted graveyard in America.' },
       { id: 'falk', title: 'Fouke Monster Bog', state: 'AR', region: 'Fouke, AR', category: 'cryptid', color: '#1b3022', desc: 'Home to the aggressive, three-toed Southern Sasquatch.' },
       { id: 'centralia', title: 'Centralia Mine Fire', state: 'PA', region: 'Centralia, PA', category: 'historic', color: '#444444', desc: 'A town burning from the inside out since a 1962 coal fire.' },
-      { id: 'winchester', title: 'Winchester House', state: 'CA', region: 'San Jose, CA', category: 'historic', color: '#3d2b1f', desc: 'A labyrinth of architectural madness built to confuse spirits.' }
+      { id: 'winchester', title: 'Winchester House', state: 'CA', region: 'San Jose, CA', category: 'historic', color: '#3d2b1f', desc: 'A labyrinth of architectural madness built to confuse spirits.' },
+      { id: 'crescent', title: 'Crescent Hotel', state: 'AR', region: 'Eureka Springs, AR', category: 'haunted', color: '#2e1a47', desc: 'Known as "America\'s Most Haunted Hotel," this limestone manor served as a fraudulent cancer hospital in the 1930s. Guests report sightings of "Theodora" and the infamous "Michael," a stonemason who fell during construction.', related: ['eureka'] },
+      { id: 'ufo-watchtower', title: 'UFO Watchtower', state: 'CO', region: 'Hooper, CO', category: 'alien', color: '#004d40', desc: 'A roadside observation deck in the high-altitude desert of the San Luis Valley. Surrounded by two "psychic vortices," this spot has recorded dozens of unexplained aerial phenomena and features a "rock garden" of offerings left for extraterrestrials.', related: ['san-luis'] }
     ];
+</script>
 
     let currentCat = 'all';
     let currentState = 'all';
