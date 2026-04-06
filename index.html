@@ -50,8 +50,7 @@
             <div class="px-4 py-3 border-b border-white/5 mb-2">
               <p class="text-[10px] text-zinc-500 font-black uppercase tracking-widest">My Collections</p>
             </div>
-            <div id="dropdown-lists-container">
-               </div>
+            <div id="dropdown-lists-container"></div>
             <button onclick="clearAllData()" class="w-full text-left px-4 py-3 text-[10px] text-red-400 font-bold uppercase hover:bg-red-500/10 rounded-xl mt-2 transition">Reset All Data</button>
           </div>
         </div>
@@ -97,7 +96,7 @@
     <section id="grid-section" class="max-w-6xl mx-auto px-6 pb-20 mt-20">
       <div class="flex flex-col gap-8 mb-12">
         <div class="flex items-center gap-3 text-left">
-          <i data-lucide="skull" class="text-purple-600 w-10 h-10 skull-spin"></i>
+          <i data-lucide="compass" class="text-purple-600 w-10 h-10"></i>
           <div class="flex flex-col">
             <span class="text-zinc-500 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">EXPLORE</span>
             <h2 class="text-4xl font-black leading-none text-left tracking-tighter uppercase">Discover OddStops</h2>
@@ -109,14 +108,17 @@
             <button class="filter-btn active bg-purple-600 text-white px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition" data-filter="all">
               <i data-lucide="sparkles" class="w-4 h-4"></i> All
             </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="cemetery">
-              <i data-lucide="cross" class="w-4 h-4"></i> Cemeteries
+            <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="crime">
+              <i data-lucide="fingerprint" class="w-4 h-4"></i> True Crime
+            </button>
+            <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="haunted">
+              <i data-lucide="ghost" class="w-4 h-4"></i> Haunted
             </button>
             <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="historic">
               <i data-lucide="landmark" class="w-4 h-4"></i> Historic
             </button>
-            <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="haunted">
-              <i data-lucide="ghost" class="w-4 h-4"></i> Haunted
+            <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="cemetery">
+              <i data-lucide="cross" class="w-4 h-4"></i> Cemeteries
             </button>
             <button class="filter-btn bg-white/5 text-zinc-500 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 whitespace-nowrap transition hover:text-white" data-filter="cryptid">
               <i data-lucide="footprints" class="w-4 h-4"></i> Cryptid
@@ -156,9 +158,15 @@
       </div>
 
       <div id="trip-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-left"></div>
+
+      <div id="load-more-container" class="flex justify-center mt-12 pb-20 hidden">
+        <button onclick="loadMore()" class="bg-white/5 border border-white/10 text-white px-12 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest hover:bg-white/10 transition-all hover:scale-105 active:scale-95">
+          Load More Locations
+        </button>
+      </div>
     </section>
 
-    <footer class="pb-20 px-6 mt-20 border-t border-white/5 pt-12">
+    <footer class="pb-20 px-6 border-t border-white/5 pt-12">
       <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
         <div class="text-left">
           <div class="flex items-center gap-2 mb-4">
@@ -198,30 +206,36 @@
   </div>
 
   <script>
+    // ADDED TRUE CRIME DEEP CRIMSON (#450a0a)
     const categoryColors = {
       haunted: '#2e1a47',
       alien: '#064e3b',
       historic: '#1c1917',
       cryptid: '#064e3b',
       cemetery: '#0c0a09',
+      crime: '#450a0a',
       default: '#1e1e28'
     };
 
     // --- COLLECTION SYSTEM DATA ---
-    let userCollections = JSON.parse(localStorage.getItem('oddstops_collections')) || {
-      "My Bucket List": []
-    };
+    let userCollections = JSON.parse(localStorage.getItem('oddstops_collections')) || { "My Bucket List": [] };
     let activeLocationId = null;
 
-    // YOUR FULL DATABASE (51 LOCATIONS)
+    // --- PAGINATION DATA ---
+    let visibleCount = 12;
+    let currentFilteredTrips = [];
+
+    // YOUR FULL DATABASE (53 LOCATIONS WITH CRIME ADDED)
     const trips = [
-      { id: 'sloss', title: 'Sloss Furnaces', state: 'AL', region: 'Birmingham, AL', category: 'haunted', desc: 'A massive iron plant where the "Graveyard Shift" never truly ended.', history: 'Operating from 1882 to 1971, this industrial giant was known for brutal working conditions. The most famous ghost is "Slag," a cruel foreman who supposedly fell into the melted iron.', facts: ['National Historic Landmark', 'Documented shadow figures in the tunnel', 'Iron-ore dust often forms strange mist patterns'], related: [] },
-      { id: 'igloo', title: 'The Igloo City', state: 'AK', region: 'Cantwell, AK', category: 'historic', desc: 'A massive, abandoned concrete igloo rotting in the Alaskan wilderness.', history: 'Built in the 1970s as a hotel that never opened due to code violations. It now stands as a surreal, decaying shell against the mountains.', facts: ['Four stories tall', 'Popular stop for Aurora Borealis photographers', 'Completely hollow interior'], related: [] },
-      { id: 'birdcage', title: 'Bird Cage Theatre', state: 'AZ', region: 'Tombstone, AZ', category: 'historic', desc: 'The "wickedest night spot" between New Orleans and San Francisco.', history: 'Site of 26 deaths and over 140 bullet holes in the walls. It served as a theater, saloon, and brothel during the silver boom.', facts: ['The world\'s longest poker game lasted 8 years here', 'Original stage curtains still intact', 'Frequent reports of phantom cigar smoke'], related: [] },
-      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', desc: 'A Victorian-era town built on healing springs and deep lore.', history: 'Founded in 1879, Eureka Springs was built around 60 natural cold-water springs believed to have healing powers. The entire city is listed on the National Register of Historic Places.', facts: ['No two streets intersect at a 90-degree angle', 'Underground tunnels and hidden levels', 'Victorian architecture preserved'], related: ['crescent'] },
-      { id: 'queen-mary', title: 'The Queen Mary', state: 'CA', region: 'Long Beach, CA', category: 'haunted', desc: 'A retired ocean liner with more spirits than staterooms.', history: 'Once a luxury liner and WWII troopship, the ship is now permanently docked. Stateroom B340 is so active it was once closed to the public.', facts: ['The "Grey Ghost" was its WWII nickname', 'First-class pool is a hotspot for sightings', 'Over 49 recorded deaths on board'], related: [] },
+      { id: 'last-resort', title: 'The Last Resort Bar', state: 'FL', region: 'Port Orange, FL', category: 'crime', desc: 'The final hangout of Aileen Wuornos before her arrest.', history: 'A notorious biker bar where Aileen Wuornos spent her final days of freedom. It remains a pilgrimage site for those studying her case.', facts: ['Aileen\'s favorite seat is still noted', 'Original artifacts from the era remain', 'Part of the Highway Killer road trip'], related: [] },
+      { id: 'clutter-house', title: 'The Clutter Home', state: 'KS', region: 'Holcomb, KS', category: 'crime', desc: 'The site of the murders that inspired "In Cold Blood."', history: 'The 1959 murders of the Clutter family changed the American psyche and led Truman Capote to write his masterpiece.', facts: ['Private residence (view from road)', 'Inspired the true crime genre', 'Site of intense historical interest'], related: [] },
+      { id: 'sloss', title: 'Sloss Furnaces', state: 'AL', region: 'Birmingham, AL', category: 'haunted', desc: 'A massive iron plant where the "Graveyard Shift" never truly ended.', history: 'Operating from 1882 to 1971, this industrial giant was known for brutal working conditions. The most famous ghost is "Slag," a cruel foreman.', facts: ['National Historic Landmark', 'Documented shadow figures in the tunnel', 'Iron-ore dust forms strange mist'], related: [] },
+      { id: 'igloo', title: 'The Igloo City', state: 'AK', region: 'Cantwell, AK', category: 'historic', desc: 'A massive, abandoned concrete igloo rotting in the Alaskan wilderness.', history: 'Built in the 1970s as a hotel that never opened due to code violations. It now stands as a surreal, decaying shell.', facts: ['Four stories tall', 'Popular stop for Aurora Borealis photographers', 'Completely hollow interior'], related: [] },
+      { id: 'birdcage', title: 'Bird Cage Theatre', state: 'AZ', region: 'Tombstone, AZ', category: 'historic', desc: 'The "wickedest night spot" between New Orleans and San Francisco.', history: 'Site of 26 deaths and over 140 bullet holes in the walls. It served as a theater, saloon, and brothel during the silver boom.', facts: ['The world\'s longest poker game lasted 8 years', 'Original stage curtains intact', 'Frequent phantom cigar smoke'], related: [] },
+      { id: 'eureka', title: 'Eureka Springs', state: 'AR', region: 'Carroll County, AR', category: 'historic', desc: 'A Victorian-era town built on healing springs and deep lore.', history: 'Founded in 1879, Eureka Springs was built around 60 natural cold-water springs believed to have healing powers.', facts: ['No two streets intersect at 90 degrees', 'Underground tunnels and hidden levels', 'Victorian architecture preserved'], related: ['crescent'] },
+      { id: 'queen-mary', title: 'The Queen Mary', state: 'CA', region: 'Long Beach, CA', category: 'haunted', desc: 'A retired ocean liner with more spirits than staterooms.', history: 'Once a luxury liner and WWII troopship, the ship is now permanently docked. Stateroom B340 is a known hotspot.', facts: ['The "Grey Ghost" was its WWII nickname', 'First-class pool is active', 'Over 49 recorded deaths on board'], related: [] },
       { id: 'stanley', title: 'The Stanley Hotel', state: 'CO', region: 'Estes Park, CO', category: 'haunted', desc: 'The mountain resort that gave Stephen King "The Shining."', history: 'Opened in 1909, this grand hotel is famous for its ghostly piano music and the spirit of its founder wandering the lobby.', facts: ['Room 217 is where King stayed', 'Features a real hedge maze', 'Phantom children on the 4th floor'], related: [] },
-      { id: 'union-cem', title: 'Union Cemetery', state: 'CT', region: 'Easton, CT', category: 'cemetery', desc: 'Home to the famous "White Lady" of Easton.', history: 'One of the oldest and most haunted cemeteries in the US. The White Lady has been seen by off-duty police officers and captured on film.', facts: ['Dating back to the 1700s', 'The "Red Eyes" spirit stalks the woods', 'Documented by Ed and Lorraine Warren'], related: [] },
+      { id: 'union-cem', title: 'Union Cemetery', state: 'CT', region: 'Easton, CT', category: 'cemetery', desc: 'Home to the famous "White Lady" of Easton.', history: 'One of the oldest and most haunted cemeteries in the US. The White Lady has been seen by off-duty police officers.', facts: ['Dating back to the 1700s', 'The "Red Eyes" spirit stalks the woods', 'Documented by Ed and Lorraine Warren'], related: [] },
       { id: 'fort-del', title: 'Fort Delaware', state: 'DE', region: 'Pea Patch Island, DE', category: 'historic', desc: 'A Union fortress and prison for Confederate POWs.', history: 'Known as the "Andersonville of the North," thousands of prisoners died here from disease and starvation.', facts: ['Accessible only by ferry', 'Frequent EVP recordings', 'The "Dungeon" area is active'], related: [] },
       { id: 'oct-house', title: 'The Octagon House', state: 'DC', region: 'Washington, DC', category: 'haunted', desc: 'The haunted temporary White House of 1814.', history: 'After the British burned the White House, President Madison moved here. It is haunted by daughters of the original owner.', facts: ['The bells reportedly ring on their own', 'A phantom carpet is seen unrolling', 'Dolly Madison\'s spirit hosts parties'], related: [] },
       { id: 'st-augustine', title: 'St. Augustine Lighthouse', state: 'FL', region: 'St. Augustine, FL', category: 'haunted', desc: 'A historic beacon haunted by the "Girl in the Blue Velvet Dress."', history: 'Built in 1874, this lighthouse has seen shipwrecks and tragedies, including the drowning of the Pittee children.', facts: ['Pittee girls heard laughing on stairs', 'Shadowy figures in the lens room', 'Active paranormal site in the South'], related: [] },
@@ -419,7 +433,7 @@
         } 
     }
 
-    // --- MAIN MODAL & GRID RENDERING ---
+    // --- MAIN MODAL & RENDERING ---
     function openModal(id) {
       const item = trips.find(t => t.id === id);
       if(!item) return;
@@ -523,15 +537,20 @@
       lucide.createIcons();
     }
 
+    // --- GRID PAGINATION & RENDERING ---
     function renderGrid(data = trips) {
       const grid = document.getElementById('trip-grid');
-      grid.innerHTML = '';
-      const filtered = data.filter(t => 
+      const loadMoreContainer = document.getElementById('load-more-container');
+      
+      currentFilteredTrips = data.filter(t => 
         (currentCat === 'all' || t.category === currentCat) && 
         (currentState === 'all' || t.state === currentState)
       );
 
-      filtered.forEach(item => {
+      grid.innerHTML = '';
+      const itemsToShow = currentFilteredTrips.slice(0, visibleCount);
+
+      itemsToShow.forEach(item => {
         const color = getCategoryColor(item.category);
         const imagePath = getImagePath(item.id);
         const card = document.createElement('div');
@@ -556,7 +575,23 @@
         card.onclick = () => openModal(item.id);
         grid.appendChild(card);
       });
+
+      if (visibleCount >= currentFilteredTrips.length) {
+        loadMoreContainer.classList.add('hidden');
+      } else {
+        loadMoreContainer.classList.remove('hidden');
+      }
+
       lucide.createIcons();
+    }
+
+    function loadMore() {
+      visibleCount += 12;
+      renderGrid();
+    }
+
+    function resetPagination() {
+      visibleCount = 12;
     }
 
     // --- INITIALIZATION ---
@@ -579,12 +614,14 @@
           btn.classList.add('active', 'bg-purple-600', 'text-white');
           btn.classList.remove('bg-white/5', 'text-zinc-500');
           currentCat = btn.dataset.filter;
+          resetPagination(); // Reset pagination on filter click
           renderGrid();
         };
       });
 
       document.getElementById('state-filter').onchange = (e) => {
         currentState = e.target.value;
+        resetPagination(); // Reset pagination on state change
         renderGrid();
       };
 
@@ -595,6 +632,7 @@
           t.region.toLowerCase().includes(val) ||
           t.state.toLowerCase() === val
         );
+        resetPagination(); // Reset pagination on search
         renderGrid(filtered);
       };
       
@@ -603,4 +641,3 @@
   </script>
 </body>
 </html>
-```
