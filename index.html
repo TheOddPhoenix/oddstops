@@ -610,13 +610,27 @@
       "VA": "virginia", "WA": "washington", "WV": "west virginia", "WI": "wisconsin", "WY": "wyoming"
     };
 
-    window.onload = () => {
+window.onload = () => {
       if (typeof trips !== 'undefined') {
+        
+        // --- DATA CLEANUP LOOP ---
+        // Automatically adds the state to the region if it's missing!
+        trips.forEach(t => {
+          if (t.region && t.state) {
+            // If the region doesn't already have a comma, and doesn't contain the state code
+            if (!t.region.includes(',') && !t.region.includes(t.state)) {
+              t.region = `${t.region}, ${t.state}`;
+            }
+          }
+        });
+        // -------------------------
+
         renderFeatured();
         renderGrid();
       } else {
         console.warn("data.js could not be loaded or 'trips' is undefined.");
       }
+      
       updateAccountDropdown();
       
       document.getElementById('modal-close').onclick = () => { 
