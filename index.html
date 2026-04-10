@@ -308,7 +308,6 @@
     }
 
     function getCategoryColor(cat) { return categoryColors[cat] || categoryColors.default; }
-    function getImagePath(id) { return `images/${id}.png`; }
 
     function updateAccountDropdown() {
       const container = document.getElementById('dropdown-lists-container');
@@ -350,7 +349,6 @@
           if (typeof trips === 'undefined') return;
           const item = trips.find(t => t.id === id);
           if(!item) return;
-          const color = getCategoryColor(item.category);
           const isVisited = userVisited.includes(item.id);
           let badgesHtml = `<div class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-white/5">`;
           badgesHtml += generateAutoBadges(item);
@@ -440,9 +438,8 @@
       if (typeof trips === 'undefined') return;
       const item = trips.find(t => t.id === id);
       if(!item) return;
-      const color = getCategoryColor(item.category);
       document.getElementById('modal-title').textContent = item.title;
-      document.getElementById('modal-map-link').href = `https://maps.google.com/?q=${encodeURIComponent(item.title + ' ' + item.region)}`;
+      document.getElementById('modal-map-link').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(item.title + ' ' + item.region);
       
       let metaHtml = '';
       if (item.safety_rating) {
@@ -465,4 +462,113 @@
         </div>
         ${metaHtml ? `<div class="flex flex-wrap gap-2 sm:gap-3">${metaHtml}</div>` : ''}
         <div>
-          <div class
+          <div class="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4 text-purple-500">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+              <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest">${item.region}</span>
+          </div>
+          <p class="text-zinc-300 text-sm sm:text-lg leading-relaxed border-l-2 border-purple-600/30 pl-4 sm:pl-6">${item.desc}</p>
+        </div>
+        <div>
+          <h3 class="text-purple-500 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 uppercase tracking-tighter">Dark History & Lore</h3>
+          <p class="text-zinc-400 leading-relaxed text-sm sm:text-md">${item.history || 'Detailed historical information is pending for this location.'}</p>
+        </div>
+      `;
+      const bookmarkBtn = document.getElementById('bookmark-trigger');
+      bookmarkBtn.onclick = () => openSaveMenu(item.id);
+      updateBookmarkIcon(item.id);
+      document.getElementById('detail-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function renderFeatured() {
+      if (typeof trips === 'undefined') return;
+      const featured = trips.find(t => t.id === 'eureka');
+      if(!featured) return;
+      document.getElementById('featured-card').innerHTML = `
+        <div onclick="openModal('${featured.id}')" class="flex flex-col md:flex-row w-full group">
+          <div class="w-full md:w-2/5 h-48 sm:min-h-[350px] flex items-center justify-center border-b sm:border-b-0 sm:border-r border-white/5 overflow-hidden bg-zinc-900">
+            <img src="images/${featured.id}.png" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='images/${featured.id}.jpg'; this.parentElement.classList.add('bg-zinc-900');">
+          </div>
+          <div class="p-6 sm:p-12 flex flex-col justify-center flex-1 text-left relative">
+            <h3 class="text-2xl sm:text-4xl font-black mb-2 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors uppercase">${featured.title}</h3>
+            <div class="flex items-center gap-2 mb-4 sm:mb-6 text-purple-500">
+               <i data-lucide="map-pin" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+               <span class="text-xs sm:text-sm font-bold uppercase tracking-wider">${featured.region}</span>
+            </div>
+            <p class="text-zinc-400 text-sm sm:text-lg mb-6 sm:mb-10 leading-relaxed">${featured.desc}</p>
+            <div class="flex items-center justify-between border-t border-white/5 pt-6 sm:pt-8">
+              <span class="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500">Tap to learn more</span>
+              <div class="p-3 sm:p-4 bg-white/5 rounded-xl sm:rounded-2xl border border-white/5"><i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function renderGrid(data = null) {
+      if (typeof trips === 'undefined') return;
+      const sourceData = data || trips;
+      const grid = document.getElementById('trip-grid');
+      const loadMoreContainer = document.getElementById('load-more-container');
+      currentFilteredTrips = sourceData.filter(t => (currentCat === 'all' || t.category === currentCat));
+      grid.innerHTML = '';
+      const itemsToShow = currentFilteredTrips.slice(0, visibleCount);
+      itemsToShow.forEach(item => {
+        let badgesHtml = `<div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/5">`;
+        badgesHtml += generateAutoBadges(item);
+        badgesHtml += `</div>`;
+        const card = document.createElement('div');
+        card.className = 'attraction-card rounded-[1.5rem] sm:rounded-[2.5rem] p-4 sm:p-8 cursor-pointer relative group flex flex-col h-full';
+        card.onclick = () => openModal(item.id);
+        card.innerHTML = `
+          <div class="h-32 sm:h-48 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 flex items-center justify-center overflow-hidden bg-zinc-900 relative shrink-0">
+            <button onclick="event.stopPropagation(); openSaveMenu('${item.id}')" class="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-2 sm:p-3 bg-black/40 backdrop-blur-md rounded-lg sm:rounded-xl border border-white/10 text-white hover:bg-purple-600 transition-all">
+              <i data-lucide="bookmark" class="w-3.5 h-3.5 sm:w-4 sm:h-4 ${Object.values(userCollections).some(l => l.includes(item.id)) ? 'fill-white text-white' : ''}"></i>
+            </button>
+            <img src="images/${item.id}.png" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.parentElement.classList.add('bg-zinc-900');">
+          </div>
+          <div class="text-left flex flex-col flex-1">
+            <h3 class="text-sm sm:text-2xl font-black text-white leading-tight uppercase line-clamp-2">${item.title}</h3>
+            <div class="flex items-center gap-1.5 mt-2 mb-4 text-purple-500 font-bold uppercase tracking-widest text-[8px] sm:text-[11px]">
+               <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> <span>${item.region}</span>
+            </div>
+            <p class="text-zinc-500 text-[10px] sm:text-sm line-clamp-2 leading-relaxed mb-auto">${item.desc}</p>
+            ${badgesHtml}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      if (visibleCount >= currentFilteredTrips.length) loadMoreContainer.classList.add('hidden');
+      else loadMoreContainer.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function loadMore() { visibleCount += 12; renderGrid(); }
+    function resetPagination() { visibleCount = 12; }
+
+    window.onload = () => {
+      if (typeof trips !== 'undefined') {
+        trips.forEach(t => { if (t.region && t.state && !t.region.includes(',') && !t.region.includes(t.state)) t.region = `${t.region}, ${t.state}`; });
+        renderFeatured(); renderGrid();
+      }
+      updateAccountDropdown();
+      document.getElementById('modal-close').onclick = () => { document.getElementById('detail-modal').classList.add('hidden'); closeSaveMenu(); };
+      document.querySelectorAll('button.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('button.filter-btn').forEach(b => { b.classList.remove('active', 'bg-purple-600', 'text-white'); b.classList.add('bg-white/5', 'text-zinc-500'); });
+          btn.classList.add('active', 'bg-purple-600', 'text-white'); btn.classList.remove('bg-white/5', 'text-zinc-500');
+          currentCat = btn.dataset.filter; document.getElementById('search-input').value = ''; resetPagination(); renderGrid();
+        };
+      });
+      document.getElementById('search-input').oninput = (e) => {
+        if (typeof trips === 'undefined') return;
+        const val = e.target.value.toLowerCase().trim();
+        const filtered = trips.filter(t => t.title.toLowerCase().includes(val) || t.region.toLowerCase().includes(val));
+        resetPagination(); renderGrid(filtered);
+      };
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
