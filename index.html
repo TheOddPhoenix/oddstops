@@ -137,9 +137,28 @@
 
       <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
         <div class="p-8 sm:p-12 bg-purple-900/10 border border-purple-500/20 rounded-[1.5rem] sm:rounded-[2.5rem] flex flex-col items-center text-center">
-          <div class="p-4 bg-purple-600/20 rounded-full mb-4 sm:mb-6">
-            <i data-lucide="map-pin-question" class="w-8 h-8 sm:w-10 sm:h-10 text-purple-500"></i>
+          
+          <div class="flex gap-6 sm:gap-10 mb-6">
+            <div class="flex flex-col items-center gap-2">
+               <div class="p-3 bg-purple-600/20 rounded-full border border-purple-500/30">
+                 <i data-lucide="landmark" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"></i>
+               </div>
+               <span class="text-[8px] font-bold uppercase tracking-widest text-zinc-500">History</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+               <div class="p-3 bg-purple-600/20 rounded-full border border-purple-500/30">
+                 <i data-lucide="ghost" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"></i>
+               </div>
+               <span class="text-[8px] font-bold uppercase tracking-widest text-zinc-500">Haunted</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+               <div class="p-3 bg-purple-600/20 rounded-full border border-purple-500/30">
+                 <i data-lucide="sparkles" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400"></i>
+               </div>
+               <span class="text-[8px] font-bold uppercase tracking-widest text-zinc-500">Bizarre</span>
+            </div>
           </div>
+
           <h3 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter mb-3">Know a strange location?</h3>
           <p class="text-zinc-400 text-xs sm:text-sm mb-8 max-w-md mx-auto leading-relaxed">Help us map the macabre. Submit a dark history site, haunted hall, or bizarre roadside attraction to be featured on Oddities.</p>
           <button onclick="showToast('Feature Coming Soon')" class="bg-purple-600 text-[#12121a] px-6 py-3 rounded-xl font-bold uppercase text-[10px] sm:text-xs tracking-widest hover:scale-105 transition">Suggest a Stop</button>
@@ -232,7 +251,7 @@
       default: '#1e1e28'
     };
 
-    // --- NEW SMART AUTO-SCANNER ---
+    // --- SMART AUTO-SCANNER ---
     function generateAutoBadges(item) {
       const textToScan = [
         item.category || '',
@@ -276,7 +295,6 @@
       });
       return html;
     }
-    // -------------------------------
 
     let userCollections = JSON.parse(localStorage.getItem('oddstops_collections')) || { "My Bucket List": [] };
     let userVisited = JSON.parse(localStorage.getItem('oddstops_visited')) || [];
@@ -458,7 +476,7 @@
 
       document.getElementById('modal-title').textContent = item.title;
       
-      document.getElementById('modal-map-link').href = `https://maps.google.com/?q=${encodeURIComponent(item.title + ' ' + item.region)}`;
+      document.getElementById('modal-map-link').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.title + ' ' + item.region)}`;
       
       let metaHtml = '';
       if (item.safety_rating) {
@@ -473,23 +491,6 @@
           <i data-lucide="external-link" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400"></i>
           <span class="text-[9px] sm:text-[10px] font-bold uppercase text-purple-400 tracking-widest">${item.booking.type || 'Visit Site'}</span>
         </a>`;
-      }
-      if (item.booking && item.booking.phone) {
-        metaHtml += `<a href="tel:${item.booking.phone}" class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-zinc-500/10 border border-zinc-500/20 rounded-xl hover:bg-zinc-500/20 transition">
-          <i data-lucide="phone" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-zinc-400"></i>
-          <span class="text-[9px] sm:text-[10px] font-bold uppercase text-zinc-400 tracking-widest">${item.booking.phone}</span>
-        </a>`;
-      }
-
-      let disclaimersHtml = '';
-      if (item.disclaimers && item.disclaimers.length > 0) {
-        disclaimersHtml = `
-        <div class="mb-6 sm:mb-8 p-4 sm:p-6 bg-red-500/5 border border-red-500/20 rounded-xl sm:rounded-2xl">
-          <h4 class="text-red-500 font-black text-[10px] sm:text-xs uppercase tracking-widest mb-2 sm:mb-3 flex items-center gap-2"><i data-lucide="shield-alert" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i> Warnings & Rules</h4>
-          <ul class="space-y-1.5 sm:space-y-2">
-            ${item.disclaimers.map(d => `<li class="flex items-start gap-2 text-zinc-300 text-xs sm:text-sm"><span class="text-red-500 font-bold mt-0.5">•</span> ${d}</li>`).join('')}
-          </ul>
-        </div>`;
       }
 
       let relatedHtml = '';
@@ -525,8 +526,6 @@
         
         ${metaHtml ? `<div class="flex flex-wrap gap-2 sm:gap-3">${metaHtml}</div>` : ''}
 
-        ${disclaimersHtml}
-
         <div>
           <div class="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4 text-purple-500">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
@@ -534,30 +533,11 @@
           </div>
           <p class="text-zinc-300 text-sm sm:text-lg leading-relaxed border-l-2 border-purple-600/30 pl-4 sm:pl-6">${item.desc}</p>
         </div>
-        
-        ${item.parking_tip ? `
-        <div class="p-4 sm:p-6 bg-white/5 rounded-xl sm:rounded-2xl border border-white/10">
-          <h4 class="text-zinc-500 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest mb-1.5 sm:mb-2 flex items-center gap-1.5 sm:gap-2"><i data-lucide="car" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i> Parking & Access</h4>
-          <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed">${item.parking_tip}</p>
-        </div>` : ''}
 
         <div>
           <h3 class="text-purple-500 font-bold text-xl sm:text-2xl mb-3 sm:mb-4 uppercase tracking-tighter">Dark History & Lore</h3>
           <p class="text-zinc-400 leading-relaxed text-sm sm:text-md">${item.history || 'Detailed historical information is pending for this location.'}</p>
         </div>
-
-        ${item.facts && item.facts.length > 0 ? `
-        <div>
-          <h3 class="text-purple-500 font-bold text-xl sm:text-2xl mb-4 sm:mb-6 uppercase tracking-tighter">Key Facts</h3>
-          <ul class="space-y-3 sm:space-y-4">
-            ${item.facts.map(fact => `
-              <li class="flex items-start gap-2 sm:gap-3 text-zinc-300">
-                <i data-lucide="star" class="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 mt-0.5 sm:mt-1 shrink-0"></i>
-                <span class="text-sm sm:text-md font-medium leading-tight">${fact}</span>
-              </li>
-            `).join('')}
-          </ul>
-        </div>` : ''}
 
         ${relatedHtml}
       `;
@@ -582,9 +562,6 @@
           <div class="w-full md:w-2/5 h-48 sm:min-h-[350px] flex items-center justify-center border-b sm:border-b-0 sm:border-r border-white/5 overflow-hidden bg-zinc-900" style="background: linear-gradient(135deg, ${color}, #12121a)">
             <img src="${imagePath}" class="w-full h-full object-cover" 
                  onerror="this.onerror=null; this.src='images/${featured.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
-            <div class="hidden w-full h-full items-center justify-center">
-                <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
-            </div>
           </div>
           <div class="p-6 sm:p-12 flex flex-col justify-center flex-1 text-left relative">
             <h3 class="text-2xl sm:text-4xl font-black mb-2 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors uppercase">${featured.title}</h3>
@@ -636,9 +613,6 @@
             </button>
             <img src="${imagePath}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
                  onerror="this.onerror=null; this.src='images/${item.id}.jpg'; this.addEventListener('error', function(){ this.style.display='none'; this.nextElementSibling.style.display='flex'; }, {once: true})">
-            <div class="hidden w-full h-full items-center justify-center" style="background: linear-gradient(135deg, ${color}, #1e1e28)">
-              <span class="text-[8px] sm:text-[10px] font-bold text-white/30 uppercase tracking-widest px-2 text-center">Photo Coming</span>
-            </div>
           </div>
           <div class="text-left flex flex-col flex-1">
             <h3 class="text-sm sm:text-2xl font-black text-white leading-tight uppercase line-clamp-2">${item.title}</h3>
@@ -671,23 +645,8 @@
       visibleCount = 12;
     }
 
-    const stateNames = {
-      "AL": "alabama", "AK": "alaska", "AZ": "arizona", "AR": "arkansas", "CA": "california",
-      "CO": "colorado", "CT": "connecticut", "DE": "delaware", "FL": "florida", "GA": "georgia",
-      "HI": "hawaii", "ID": "idaho", "IL": "illinois", "IN": "indiana", "IA": "iowa",
-      "KS": "kansas", "KY": "kentucky", "LA": "louisiana", "ME": "maine", "MD": "maryland",
-      "MA": "massachusetts", "MI": "michigan", "MN": "minnesota", "MS": "mississippi", "MO": "missouri",
-      "MT": "montana", "NE": "nebraska", "NV": "nevada", "NH": "new hampshire", "NJ": "new jersey",
-      "NM": "new mexico", "NY": "new york", "NC": "north carolina", "ND": "north dakota", "OH": "ohio",
-      "OK": "oklahoma", "OR": "oregon", "PA": "pennsylvania", "RI": "rhode island", "SC": "south carolina",
-      "SD": "south dakota", "TN": "tennessee", "TX": "texas", "UT": "utah", "VT": "vermont",
-      "VA": "virginia", "WA": "washington", "WV": "west virginia", "WI": "wisconsin", "WY": "wyoming"
-    };
-
     window.onload = () => {
       if (typeof trips !== 'undefined') {
-        
-        // --- DATA CLEANUP LOOP ---
         trips.forEach(t => {
           if (t.region && t.state) {
             if (!t.region.includes(',') && !t.region.includes(t.state)) {
@@ -695,21 +654,14 @@
             }
           }
         });
-        // -------------------------
-
         renderFeatured();
         renderGrid();
-      } else {
-        console.warn("data.js could not be loaded or 'trips' is undefined.");
       }
-      
       updateAccountDropdown();
-      
       document.getElementById('modal-close').onclick = () => { 
           document.getElementById('detail-modal').classList.add('hidden'); 
           closeSaveMenu(); 
       };
-      
       document.querySelectorAll('button.filter-btn').forEach(btn => {
         btn.onclick = () => {
           document.querySelectorAll('button.filter-btn').forEach(b => {
@@ -718,10 +670,8 @@
           });
           btn.classList.add('active', 'bg-purple-600', 'text-white');
           btn.classList.remove('bg-white/5', 'text-zinc-500');
-          
           currentCat = btn.dataset.filter;
           document.getElementById('search-input').value = '';
-          
           resetPagination();
           renderGrid();
         };
@@ -730,19 +680,12 @@
       document.getElementById('search-input').oninput = (e) => {
         if (typeof trips === 'undefined') return;
         const val = e.target.value.toLowerCase().trim();
-        
         const filtered = trips.filter(t => {
-          const fullState = t.state ? (stateNames[t.state.toUpperCase()] || "") : "";
-          return t.title.toLowerCase().includes(val) || 
-                 t.region.toLowerCase().includes(val) ||
-                 (t.state && t.state.toLowerCase().includes(val)) ||
-                 fullState.includes(val);
+          return t.title.toLowerCase().includes(val) || t.region.toLowerCase().includes(val);
         });
-        
         resetPagination();
         renderGrid(filtered);
       };
-      
       lucide.createIcons();
     };
   </script>
