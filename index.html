@@ -535,7 +535,7 @@
       lucide.createIcons();
     }
 
-    function renderFeatured() {
+function renderFeatured() {
       if (typeof trips === 'undefined') return;
       const featured = trips.find(t => t.id === 'eureka') || trips[0]; 
       if(!featured) return;
@@ -548,8 +548,9 @@
       badgesHtml += `</div>`;
 
       document.getElementById('featured-card').innerHTML = `
-        <div onclick="openModal('${featured.id}')" class="flex flex-col md:flex-row w-full group">
-          <div class="w-full md:w-2/5 h-48 sm:min-h-[350px] flex items-center justify-center border-b sm:border-b-0 sm:border-r border-white/5 overflow-hidden bg-zinc-900 relative">
+        <div onclick="openModal('${featured.id}')" class="flex flex-col md:flex-row w-full group p-4 sm:p-6 lg:p-8 gap-6 sm:gap-8 lg:gap-12 items-center">
+          
+          <div class="w-full md:w-2/5 h-64 sm:h-[350px] flex items-center justify-center overflow-hidden bg-zinc-900 relative rounded-[1.25rem] sm:rounded-[2rem] shrink-0 shadow-2xl border border-white/5">
             <button onclick="event.stopPropagation(); openSaveMenu('${featured.id}')" class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 p-2 sm:p-3 bg-black/40 backdrop-blur-md rounded-lg sm:rounded-xl border border-white/10 text-white hover:bg-purple-600 transition-all">
               <i data-lucide="bookmark" class="w-4 h-4 sm:w-5 sm:h-5 ${isSaved ? 'fill-white text-white' : ''}"></i>
             </button>
@@ -558,19 +559,19 @@
             <div class="hidden w-full h-full items-center justify-center absolute inset-0" style="background: linear-gradient(135deg, ${color}, #1e1e28);">
                 <span class="text-[10px] font-bold text-white/20 uppercase tracking-widest">Photo Coming Soon</span>
             </div>
-
           </div>
-          <div class="p-6 sm:p-12 flex flex-col justify-center flex-1 text-left relative">
-            <h3 class="text-2xl sm:text-4xl font-black mb-2 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors uppercase">${featured.title}</h3>
+          
+          <div class="flex flex-col justify-center flex-1 text-left relative w-full py-2 sm:py-4">
+            <h3 class="text-2xl sm:text-4xl lg:text-5xl font-black mb-2 sm:mb-4 text-[#f5f0e8] leading-tight group-hover:text-purple-400 transition-colors uppercase tracking-tighter">${featured.title}</h3>
             <div class="flex items-center gap-2 mb-4 sm:mb-6 text-purple-500">
-               <i data-lucide="map-pin" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+               <i data-lucide="map-pin" class="w-3.5 h-3.5 sm:w-5 sm:h-5"></i>
                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider">${featured.region}</span>
             </div>
-            <p class="text-zinc-400 text-sm sm:text-lg mb-4 leading-relaxed">${featured.desc}</p>
+            <p class="text-zinc-400 text-sm sm:text-lg mb-4 leading-relaxed max-w-2xl">${featured.desc}</p>
             ${badgesHtml}
-            <div class="flex items-center justify-between border-t border-white/5 pt-6 sm:pt-8 mt-6">
+            <div class="flex items-center justify-between border-t border-white/5 pt-6 sm:pt-8 mt-6 sm:mt-8">
               <span class="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-zinc-500">Tap to learn more</span>
-              <div class="p-3 sm:p-4 bg-white/5 rounded-xl sm:rounded-2xl border border-white/5"><i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
+              <div class="p-3 sm:p-4 bg-white/5 rounded-xl sm:rounded-2xl border border-white/5 group-hover:bg-purple-600/20 group-hover:text-purple-400 transition-all"><i data-lucide="arrow-up-right" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
             </div>
           </div>
         </div>
